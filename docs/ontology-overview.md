@@ -92,20 +92,53 @@ A time-bound valuation record. Ohio reappraises on a 6-year cycle with triennial
 
 ---
 
-### 4. Taxation
+### 4. Geographic Reference Areas
 
-#### **TaxDistrict**
-A geographic area determining which levies apply. Composites of overlapping jurisdictions (city, county, school, library, park, etc.).
+#### **Neighborhood**
+A named geographic area within Hamilton County used as a high-level grouping for appraisal areas. Within Cincinnati, neighborhoods align with community council areas.
+
+**Superclasses:** `geo:Feature`
 
 **Properties:**
-- `cincy:districtName` (xsd:string)
-- `cincy:hasLevies` — links to Levy entities
+- `rdfs:label` — neighborhood name
+- `cincy:neighborhoodOf` — links to child AppraisalArea entities
+
+---
+
+#### **AppraisalArea**
+A sub-area within a neighborhood used by the County Auditor for mass appraisal comparisons during the Ohio 6-year reappraisal cycle. Identified by a 5-digit code.
+
+**Superclasses:** `geo:Feature`
+
+**Properties:**
+- `cincy:appraisalAreaCode` (xsd:string) — 5-digit code
+- `cincy:inNeighborhood` — links to parent Neighborhood
+- `rdfs:label` — area description
+
+---
+
+### 5. Taxation
+
+#### **TaxDistrict**
+A geographic area determining which levies apply. Composites of overlapping jurisdictions (city, county, school, library, park, etc.). Identified by a 3-digit code.
+
+**Properties:**
+- `cincy:districtCode` (xsd:string) — 3-digit district code
+- `cincy:municipalityName` (xsd:string) — municipality, if any
+- `cincy:townshipName` (xsd:string) — township, if any
+- `cincy:fireDivisionName` (xsd:string) — fire district, if any
+- `cincy:servesSchoolDistrict` — links to SchoolDistrict
+- `cincy:hasLevy` — links to Levy entities
 - `geo:hasGeometry` — spatial boundary
 
 ---
 
 #### **SchoolDistrict**
-School districts (tracked separately as largest tax recipients).
+School districts (tracked separately as largest tax recipients). Identified by a 5-digit IRN code.
+
+**Properties:**
+- `cincy:schoolDistrictCode` (xsd:string) — 5-digit IRN
+- `rdfs:label` — district name
 
 ---
 
@@ -129,7 +162,7 @@ The computed tax obligation for a parcel in a given tax year.
 
 ---
 
-### 5. Exemptions & Abatements
+### 6. Exemptions & Abatements
 
 #### **Exemption**
 Tax relief based on property classification or ownership.
@@ -159,7 +192,7 @@ Tax relief granted via incentive programs.
 
 ---
 
-### 6. TIF Districts
+### 7. TIF Districts
 
 #### **TIFDistrict**
 Tax Increment Financing districts — geographic areas where property tax increases from new development are captured for reinvestment.
@@ -172,7 +205,7 @@ Tax Increment Financing districts — geographic areas where property tax increa
 
 ---
 
-### 7. Rental Registration
+### 8. Rental Registration
 
 #### **RentalRegistration**
 Tracking of rental properties and contact information.
@@ -189,15 +222,21 @@ Tracking of rental properties and contact information.
 
 See [`cincy-land-use-codes.ttl`](../ontology/cincy-land-use-codes.ttl) for the complete SKOS ConceptScheme.
 
-**Top-level categories:**
+**Top-level categories** (per Ohio Administrative Code 5703-25-10):
 - **1xx** — Agricultural
-- **2xx** — Extraction
+- **2xx** — Mineral Lands & Rights
 - **3xx** — Industrial
 - **4xx** — Commercial
 - **5xx** — Residential
-- **6xx** — Publicly Owned
-- **7xx** — Abated
+- **6xx** — Exempt
+- **7xx** — Special Tax Abatements
 - **8xx** — Public Utilities
+
+**Reference data files:**
+- `cincy-land-use-codes.ttl` — All use codes (state-defined + Hamilton County extensions)
+- `cincy-appraisal-areas.ttl` — 1,771 appraisal areas across 100 neighborhoods
+- `cincy-tax-districts.ttl` — 124 tax districts with jurisdiction breakdown
+- `cincy-school-districts.ttl` — 23 school districts with IRN codes
 
 ---
 

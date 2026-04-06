@@ -1,0 +1,965 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# HAMILTON COUNTY TAX DISTRICTS
+# Source: Hamilton County Auditor tax district reference data
+# Each district has a 3-digit code and is composed of municipality,
+# township, school district, and optional fire district jurisdictions.
+# =============================================================================
+
+cincy:TD_001
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 001)"@en ;
+    cincy:districtCode "001" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_002
+    a cincy:TaxDistrict ;
+    rdfs:label "Anderson Twp (District 002)"@en ;
+    cincy:districtCode "002" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Anderson" .
+
+cincy:TD_003
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 003)"@en ;
+    cincy:districtCode "003" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Madison Pl. FD" .
+
+cincy:TD_004
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 004)"@en ;
+    cincy:districtCode "004" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Silverton FD" .
+
+cincy:TD_005
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 005)"@en ;
+    cincy:districtCode "005" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Ridge FD" .
+
+cincy:TD_006
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 006)"@en ;
+    cincy:districtCode "006" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Kenwood FD" .
+
+cincy:TD_007
+    a cincy:TaxDistrict ;
+    rdfs:label "Fairfax / Columbia Twp (District 007)"@en ;
+    cincy:districtCode "007" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Fairfax" ;
+    cincy:townshipName "Columbia" .
+
+cincy:TD_008
+    a cincy:TaxDistrict ;
+    rdfs:label "Delhi Twp (District 008)"@en ;
+    cincy:districtCode "008" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Delhi" .
+
+cincy:TD_009
+    a cincy:TaxDistrict ;
+    rdfs:label "Green Twp (District 009)"@en ;
+    cincy:districtCode "009" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Green" .
+
+cincy:TD_010
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati / Green Twp (District 010)"@en ;
+    cincy:districtCode "010" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Cincinnati" ;
+    cincy:townshipName "Green" .
+
+cincy:TD_011
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 011)"@en ;
+    cincy:districtCode "011" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_012
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati / Columbia Twp (District 012)"@en ;
+    cincy:districtCode "012" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Cincinnati" ;
+    cincy:townshipName "Columbia" .
+
+cincy:TD_013
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 013)"@en ;
+    cincy:districtCode "013" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_014
+    a cincy:TaxDistrict ;
+    rdfs:label "Norwood (District 014)"@en ;
+    cincy:districtCode "014" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Norwood" ;
+    cincy:townshipName "Norwood" .
+
+cincy:TD_015
+    a cincy:TaxDistrict ;
+    rdfs:label "Silverton (District 015)"@en ;
+    cincy:districtCode "015" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Silverton" ;
+    cincy:townshipName "Silverton" .
+
+cincy:TD_016
+    a cincy:TaxDistrict ;
+    rdfs:label "Madeira (District 016)"@en ;
+    cincy:districtCode "016" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Madeira" ;
+    cincy:townshipName "Madeira" .
+
+cincy:TD_017
+    a cincy:TaxDistrict ;
+    rdfs:label "Amberley (District 017)"@en ;
+    cincy:districtCode "017" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Amberley" ;
+    cincy:townshipName "Amberley" .
+
+cincy:TD_018
+    a cincy:TaxDistrict ;
+    rdfs:label "Wyoming (District 018)"@en ;
+    cincy:districtCode "018" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Wyoming" ;
+    cincy:townshipName "Wyoming" .
+
+cincy:TD_019
+    a cincy:TaxDistrict ;
+    rdfs:label "Cheviot (District 019)"@en ;
+    cincy:districtCode "019" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Cheviot" ;
+    cincy:townshipName "Cheviot" .
+
+cincy:TD_020
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill (District 020)"@en ;
+    cincy:districtCode "020" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Indian Hill" .
+
+cincy:TD_021
+    a cincy:TaxDistrict ;
+    rdfs:label "Mariemont (District 021)"@en ;
+    cincy:districtCode "021" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Mariemont" ;
+    cincy:townshipName "Mariemont" .
+
+cincy:TD_022
+    a cincy:TaxDistrict ;
+    rdfs:label "Golf Manor (District 022)"@en ;
+    cincy:districtCode "022" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Golf Manor" ;
+    cincy:townshipName "Golf Manor" .
+
+cincy:TD_025
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 025)"@en ;
+    cincy:districtCode "025" ;
+    cincy:servesSchoolDistrict cincy:SD_21400 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_026
+    a cincy:TaxDistrict ;
+    rdfs:label "Silverton (District 026)"@en ;
+    cincy:districtCode "026" ;
+    cincy:servesSchoolDistrict cincy:SD_21400 ;
+    cincy:municipalityName "Silverton" ;
+    cincy:townshipName "Silverton" .
+
+cincy:TD_027
+    a cincy:TaxDistrict ;
+    rdfs:label "Deer Park (District 027)"@en ;
+    cincy:districtCode "027" ;
+    cincy:servesSchoolDistrict cincy:SD_21400 ;
+    cincy:municipalityName "Deer Park" ;
+    cincy:townshipName "Deer Park" .
+
+cincy:TD_031
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 031)"@en ;
+    cincy:districtCode "031" ;
+    cincy:servesSchoolDistrict cincy:SD_21860 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_032
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 032)"@en ;
+    cincy:districtCode "032" ;
+    cincy:servesSchoolDistrict cincy:SD_21860 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_033
+    a cincy:TaxDistrict ;
+    rdfs:label "Wyoming / Springfield Twp (District 033)"@en ;
+    cincy:districtCode "033" ;
+    cincy:servesSchoolDistrict cincy:SD_21860 ;
+    cincy:municipalityName "Wyoming" ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_041
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 041)"@en ;
+    cincy:districtCode "041" ;
+    cincy:servesSchoolDistrict cincy:SD_21880 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_042
+    a cincy:TaxDistrict ;
+    rdfs:label "Anderson Twp (District 042)"@en ;
+    cincy:districtCode "042" ;
+    cincy:servesSchoolDistrict cincy:SD_21880 ;
+    cincy:townshipName "Anderson" .
+
+cincy:TD_043
+    a cincy:TaxDistrict ;
+    rdfs:label "Newtown (District 043)"@en ;
+    cincy:districtCode "043" ;
+    cincy:servesSchoolDistrict cincy:SD_21880 ;
+    cincy:municipalityName "Newtown" ;
+    cincy:townshipName "Newtown" .
+
+cincy:TD_044
+    a cincy:TaxDistrict ;
+    rdfs:label "Newtown / Anderson Twp (District 044)"@en ;
+    cincy:districtCode "044" ;
+    cincy:servesSchoolDistrict cincy:SD_21880 ;
+    cincy:municipalityName "Newtown" ;
+    cincy:townshipName "Anderson" .
+
+cincy:TD_059
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill / Symmes Twp (District 059)"@en ;
+    cincy:districtCode "059" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_060
+    a cincy:TaxDistrict ;
+    rdfs:label "Terrace Park (District 060)"@en ;
+    cincy:districtCode "060" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Terrace Park" ;
+    cincy:townshipName "Terrace Park" .
+
+cincy:TD_061
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 061)"@en ;
+    cincy:districtCode "061" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Kenwood FD" .
+
+cincy:TD_062
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 062)"@en ;
+    cincy:districtCode "062" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Madison Pl. FD" .
+
+cincy:TD_063
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 063)"@en ;
+    cincy:districtCode "063" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Little Miami FD" .
+
+cincy:TD_064
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 064)"@en ;
+    cincy:districtCode "064" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_066
+    a cincy:TaxDistrict ;
+    rdfs:label "Symmes Twp (District 066)"@en ;
+    cincy:districtCode "066" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_067
+    a cincy:TaxDistrict ;
+    rdfs:label "Madeira (District 067)"@en ;
+    cincy:districtCode "067" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Madeira" ;
+    cincy:townshipName "Madeira" .
+
+cincy:TD_068
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill (District 068)"@en ;
+    cincy:districtCode "068" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Indian Hill" .
+
+cincy:TD_069
+    a cincy:TaxDistrict ;
+    rdfs:label "Milford (District 069)"@en ;
+    cincy:districtCode "069" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Milford" ;
+    cincy:townshipName "Milford" .
+
+cincy:TD_070
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill / Columbia Twp (District 070)"@en ;
+    cincy:districtCode "070" ;
+    cincy:servesSchoolDistrict cincy:SD_22440 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Columbia" .
+
+cincy:TD_071
+    a cincy:TaxDistrict ;
+    rdfs:label "Lockland (District 071)"@en ;
+    cincy:districtCode "071" ;
+    cincy:servesSchoolDistrict cincy:SD_22930 ;
+    cincy:municipalityName "Lockland" ;
+    cincy:townshipName "Lockland" .
+
+cincy:TD_072
+    a cincy:TaxDistrict ;
+    rdfs:label "Arlington Hts (District 072)"@en ;
+    cincy:districtCode "072" ;
+    cincy:servesSchoolDistrict cincy:SD_22930 ;
+    cincy:municipalityName "Arlington Hts" ;
+    cincy:townshipName "Arlington Hts" .
+
+cincy:TD_073
+    a cincy:TaxDistrict ;
+    rdfs:label "Evendale (District 073)"@en ;
+    cincy:districtCode "073" ;
+    cincy:servesSchoolDistrict cincy:SD_22930 ;
+    cincy:municipalityName "Evendale" ;
+    cincy:townshipName "Evendale" .
+
+cincy:TD_081
+    a cincy:TaxDistrict ;
+    rdfs:label "Symmes Twp (District 081)"@en ;
+    cincy:districtCode "081" ;
+    cincy:servesSchoolDistrict cincy:SD_23010 ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_082
+    a cincy:TaxDistrict ;
+    rdfs:label "Loveland (District 082)"@en ;
+    cincy:districtCode "082" ;
+    cincy:servesSchoolDistrict cincy:SD_23010 ;
+    cincy:municipalityName "Loveland" ;
+    cincy:townshipName "Loveland" .
+
+cincy:TD_083
+    a cincy:TaxDistrict ;
+    rdfs:label "Loveland / Symmes Twp (District 083)"@en ;
+    cincy:districtCode "083" ;
+    cincy:servesSchoolDistrict cincy:SD_23010 ;
+    cincy:municipalityName "Loveland" ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_091
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 091)"@en ;
+    cincy:districtCode "091" ;
+    cincy:servesSchoolDistrict cincy:SD_23090 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_092
+    a cincy:TaxDistrict ;
+    rdfs:label "Madeira (District 092)"@en ;
+    cincy:districtCode "092" ;
+    cincy:servesSchoolDistrict cincy:SD_23090 ;
+    cincy:municipalityName "Madeira" ;
+    cincy:townshipName "Madeira" .
+
+cincy:TD_093
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill (District 093)"@en ;
+    cincy:districtCode "093" ;
+    cincy:servesSchoolDistrict cincy:SD_23090 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Indian Hill" .
+
+cincy:TD_101
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 101)"@en ;
+    cincy:districtCode "101" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:townshipName "Columbia" .
+
+cincy:TD_102
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 102)"@en ;
+    cincy:districtCode "102" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Kenwood FD" .
+
+cincy:TD_103
+    a cincy:TaxDistrict ;
+    rdfs:label "Columbia Twp (District 103)"@en ;
+    cincy:districtCode "103" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:townshipName "Columbia" ;
+    cincy:fireDivisionName "Little Miami FD" .
+
+cincy:TD_104
+    a cincy:TaxDistrict ;
+    rdfs:label "Fairfax / Columbia Twp (District 104)"@en ;
+    cincy:districtCode "104" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:municipalityName "Fairfax" ;
+    cincy:townshipName "Columbia" .
+
+cincy:TD_105
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill (District 105)"@en ;
+    cincy:districtCode "105" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Indian Hill" .
+
+cincy:TD_106
+    a cincy:TaxDistrict ;
+    rdfs:label "Mariemont (District 106)"@en ;
+    cincy:districtCode "106" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:municipalityName "Mariemont" ;
+    cincy:townshipName "Mariemont" .
+
+cincy:TD_107
+    a cincy:TaxDistrict ;
+    rdfs:label "Terrace Park (District 107)"@en ;
+    cincy:districtCode "107" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:municipalityName "Terrace Park" ;
+    cincy:townshipName "Terrace Park" .
+
+cincy:TD_108
+    a cincy:TaxDistrict ;
+    rdfs:label "Milford (District 108)"@en ;
+    cincy:districtCode "108" ;
+    cincy:servesSchoolDistrict cincy:SD_23200 ;
+    cincy:municipalityName "Milford" ;
+    cincy:townshipName "Milford" .
+
+cincy:TD_111
+    a cincy:TaxDistrict ;
+    rdfs:label "Milford (District 111)"@en ;
+    cincy:districtCode "111" ;
+    cincy:servesSchoolDistrict cincy:SD_23430 ;
+    cincy:municipalityName "Milford" ;
+    cincy:townshipName "Milford" .
+
+cincy:TD_121
+    a cincy:TaxDistrict ;
+    rdfs:label "Colerain Twp (District 121)"@en ;
+    cincy:districtCode "121" ;
+    cincy:servesSchoolDistrict cincy:SD_23570 ;
+    cincy:townshipName "Colerain" .
+
+cincy:TD_122
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 122)"@en ;
+    cincy:districtCode "122" ;
+    cincy:servesSchoolDistrict cincy:SD_23570 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_124
+    a cincy:TaxDistrict ;
+    rdfs:label "Mt.Healthy (District 124)"@en ;
+    cincy:districtCode "124" ;
+    cincy:servesSchoolDistrict cincy:SD_23570 ;
+    cincy:municipalityName "Mt.Healthy" ;
+    cincy:townshipName "Mt.Healthy" .
+
+cincy:TD_125
+    a cincy:TaxDistrict ;
+    rdfs:label "Mt.Healthy / Springfield Twp (District 125)"@en ;
+    cincy:districtCode "125" ;
+    cincy:servesSchoolDistrict cincy:SD_23570 ;
+    cincy:municipalityName "Mt.Healthy" ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_126
+    a cincy:TaxDistrict ;
+    rdfs:label "Forest Park / Springfield Twp (District 126)"@en ;
+    cincy:districtCode "126" ;
+    cincy:servesSchoolDistrict cincy:SD_23570 ;
+    cincy:municipalityName "Forest Park" ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_134
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 134)"@en ;
+    cincy:districtCode "134" ;
+    cincy:servesSchoolDistrict cincy:SD_23850 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_135
+    a cincy:TaxDistrict ;
+    rdfs:label "No.College Hill (District 135)"@en ;
+    cincy:districtCode "135" ;
+    cincy:servesSchoolDistrict cincy:SD_23850 ;
+    cincy:municipalityName "No.College Hill" ;
+    cincy:townshipName "No.College Hill" .
+
+cincy:TD_141
+    a cincy:TaxDistrict ;
+    rdfs:label "Colerain Twp (District 141)"@en ;
+    cincy:districtCode "141" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:townshipName "Colerain" .
+
+cincy:TD_142
+    a cincy:TaxDistrict ;
+    rdfs:label "Green Twp (District 142)"@en ;
+    cincy:districtCode "142" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:townshipName "Green" .
+
+cincy:TD_143
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 143)"@en ;
+    cincy:districtCode "143" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_145
+    a cincy:TaxDistrict ;
+    rdfs:label "No.College Hill (District 145)"@en ;
+    cincy:districtCode "145" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:municipalityName "No.College Hill" ;
+    cincy:townshipName "No.College Hill" .
+
+cincy:TD_146
+    a cincy:TaxDistrict ;
+    rdfs:label "Forest Park (District 146)"@en ;
+    cincy:districtCode "146" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:municipalityName "Forest Park" ;
+    cincy:townshipName "Forest Park" .
+
+cincy:TD_147
+    a cincy:TaxDistrict ;
+    rdfs:label "Fairfield / Forest Park Twp (District 147)"@en ;
+    cincy:districtCode "147" ;
+    cincy:servesSchoolDistrict cincy:SD_23980 ;
+    cincy:municipalityName "Fairfield" ;
+    cincy:townshipName "Forest Park" .
+
+cincy:TD_151
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 151)"@en ;
+    cincy:districtCode "151" ;
+    cincy:servesSchoolDistrict cincy:SD_24060 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_152
+    a cincy:TaxDistrict ;
+    rdfs:label "Norwood (District 152)"@en ;
+    cincy:districtCode "152" ;
+    cincy:servesSchoolDistrict cincy:SD_24060 ;
+    cincy:municipalityName "Norwood" ;
+    cincy:townshipName "Norwood" .
+
+cincy:TD_161
+    a cincy:TaxDistrict ;
+    rdfs:label "Cincinnati (District 161)"@en ;
+    cincy:districtCode "161" ;
+    cincy:servesSchoolDistrict cincy:SD_24080 ;
+    cincy:municipalityName "Cincinnati" .
+
+cincy:TD_162
+    a cincy:TaxDistrict ;
+    rdfs:label "Delhi Twp (District 162)"@en ;
+    cincy:districtCode "162" ;
+    cincy:servesSchoolDistrict cincy:SD_24080 ;
+    cincy:townshipName "Delhi" .
+
+cincy:TD_163
+    a cincy:TaxDistrict ;
+    rdfs:label "Green Twp (District 163)"@en ;
+    cincy:districtCode "163" ;
+    cincy:servesSchoolDistrict cincy:SD_24080 ;
+    cincy:townshipName "Green" .
+
+cincy:TD_164
+    a cincy:TaxDistrict ;
+    rdfs:label "Cheviot (District 164)"@en ;
+    cincy:districtCode "164" ;
+    cincy:servesSchoolDistrict cincy:SD_20990 ;
+    cincy:municipalityName "Cheviot" .
+
+cincy:TD_170
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 170)"@en ;
+    cincy:districtCode "170" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_172
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 172)"@en ;
+    cincy:districtCode "172" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_173
+    a cincy:TaxDistrict ;
+    rdfs:label "Lincoln Hts (District 173)"@en ;
+    cincy:districtCode "173" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Lincoln Hts" ;
+    cincy:townshipName "Lincoln Hts" .
+
+cincy:TD_174
+    a cincy:TaxDistrict ;
+    rdfs:label "Woodlawn (District 174)"@en ;
+    cincy:districtCode "174" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Woodlawn" ;
+    cincy:townshipName "Woodlawn" .
+
+cincy:TD_175
+    a cincy:TaxDistrict ;
+    rdfs:label "Sharonville (District 175)"@en ;
+    cincy:districtCode "175" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Sharonville" ;
+    cincy:townshipName "Sharonville" .
+
+cincy:TD_176
+    a cincy:TaxDistrict ;
+    rdfs:label "Glendale (District 176)"@en ;
+    cincy:districtCode "176" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Glendale" ;
+    cincy:townshipName "Glendale" .
+
+cincy:TD_177
+    a cincy:TaxDistrict ;
+    rdfs:label "Blue Ash (District 177)"@en ;
+    cincy:districtCode "177" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Blue Ash" ;
+    cincy:townshipName "Blue Ash" .
+
+cincy:TD_178
+    a cincy:TaxDistrict ;
+    rdfs:label "Springdale (District 178)"@en ;
+    cincy:districtCode "178" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Springdale" ;
+    cincy:townshipName "Springdale" .
+
+cincy:TD_179
+    a cincy:TaxDistrict ;
+    rdfs:label "Evendale (District 179)"@en ;
+    cincy:districtCode "179" ;
+    cincy:servesSchoolDistrict cincy:SD_24500 ;
+    cincy:municipalityName "Evendale" ;
+    cincy:townshipName "Evendale" .
+
+cincy:TD_181
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 181)"@en ;
+    cincy:districtCode "181" ;
+    cincy:servesSchoolDistrict cincy:SD_24540 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_182
+    a cincy:TaxDistrict ;
+    rdfs:label "Reading (District 182)"@en ;
+    cincy:districtCode "182" ;
+    cincy:servesSchoolDistrict cincy:SD_24540 ;
+    cincy:municipalityName "Reading" ;
+    cincy:townshipName "Reading" .
+
+cincy:TD_183
+    a cincy:TaxDistrict ;
+    rdfs:label "Evendale (District 183)"@en ;
+    cincy:districtCode "183" ;
+    cincy:servesSchoolDistrict cincy:SD_24540 ;
+    cincy:municipalityName "Evendale" ;
+    cincy:townshipName "Evendale" .
+
+cincy:TD_191
+    a cincy:TaxDistrict ;
+    rdfs:label "Crosby Twp (District 191)"@en ;
+    cincy:districtCode "191" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:townshipName "Crosby" .
+
+cincy:TD_192
+    a cincy:TaxDistrict ;
+    rdfs:label "Harrison Twp (District 192)"@en ;
+    cincy:districtCode "192" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:townshipName "Harrison" .
+
+cincy:TD_193
+    a cincy:TaxDistrict ;
+    rdfs:label "Harrison (District 193)"@en ;
+    cincy:districtCode "193" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:municipalityName "Harrison" ;
+    cincy:townshipName "Harrison" .
+
+cincy:TD_194
+    a cincy:TaxDistrict ;
+    rdfs:label "Whitewater Twp (District 194)"@en ;
+    cincy:districtCode "194" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:townshipName "Whitewater" .
+
+cincy:TD_195
+    a cincy:TaxDistrict ;
+    rdfs:label "Cleves / Whitewater Twp (District 195)"@en ;
+    cincy:districtCode "195" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:municipalityName "Cleves" ;
+    cincy:townshipName "Whitewater" .
+
+cincy:TD_196
+    a cincy:TaxDistrict ;
+    rdfs:label "Harrison (District 196)"@en ;
+    cincy:districtCode "196" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:municipalityName "Harrison" ;
+    cincy:townshipName "Harrison" .
+
+cincy:TD_197
+    a cincy:TaxDistrict ;
+    rdfs:label "Harrison / Crosby Twp (District 197)"@en ;
+    cincy:districtCode "197" ;
+    cincy:servesSchoolDistrict cincy:SD_25060 ;
+    cincy:municipalityName "Harrison" ;
+    cincy:townshipName "Crosby" .
+
+cincy:TD_201
+    a cincy:TaxDistrict ;
+    rdfs:label "St.Bernard (District 201)"@en ;
+    cincy:districtCode "201" ;
+    cincy:servesSchoolDistrict cincy:SD_24740 ;
+    cincy:municipalityName "St.Bernard" ;
+    cincy:townshipName "St.Bernard" .
+
+cincy:TD_202
+    a cincy:TaxDistrict ;
+    rdfs:label "Elmwood Pl (District 202)"@en ;
+    cincy:districtCode "202" ;
+    cincy:servesSchoolDistrict cincy:SD_24740 ;
+    cincy:municipalityName "Elmwood Pl" ;
+    cincy:townshipName "Elmwood Pl" .
+
+cincy:TD_210
+    a cincy:TaxDistrict ;
+    rdfs:label "Sycamore Twp (District 210)"@en ;
+    cincy:districtCode "210" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:townshipName "Sycamore" .
+
+cincy:TD_211
+    a cincy:TaxDistrict ;
+    rdfs:label "Montgomery (District 211)"@en ;
+    cincy:districtCode "211" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Montgomery" ;
+    cincy:townshipName "Montgomery" .
+
+cincy:TD_212
+    a cincy:TaxDistrict ;
+    rdfs:label "Symmes Twp (District 212)"@en ;
+    cincy:districtCode "212" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_214
+    a cincy:TaxDistrict ;
+    rdfs:label "Blue Ash (District 214)"@en ;
+    cincy:districtCode "214" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Blue Ash" ;
+    cincy:townshipName "Blue Ash" .
+
+cincy:TD_215
+    a cincy:TaxDistrict ;
+    rdfs:label "Sharonville (District 215)"@en ;
+    cincy:districtCode "215" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Sharonville" ;
+    cincy:townshipName "Sharonville" .
+
+cincy:TD_216
+    a cincy:TaxDistrict ;
+    rdfs:label "Evendale (District 216)"@en ;
+    cincy:districtCode "216" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Evendale" ;
+    cincy:townshipName "Evendale" .
+
+cincy:TD_217
+    a cincy:TaxDistrict ;
+    rdfs:label "Loveland (District 217)"@en ;
+    cincy:districtCode "217" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Loveland" ;
+    cincy:townshipName "Loveland" .
+
+cincy:TD_218
+    a cincy:TaxDistrict ;
+    rdfs:label "Indian Hill (District 218)"@en ;
+    cincy:districtCode "218" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Indian Hill" ;
+    cincy:townshipName "Indian Hill" .
+
+cincy:TD_219
+    a cincy:TaxDistrict ;
+    rdfs:label "Loveland / Symmes Twp (District 219)"@en ;
+    cincy:districtCode "219" ;
+    cincy:servesSchoolDistrict cincy:SD_25250 ;
+    cincy:municipalityName "Loveland" ;
+    cincy:townshipName "Symmes" .
+
+cincy:TD_221
+    a cincy:TaxDistrict ;
+    rdfs:label "Miami Twp (District 221)"@en ;
+    cincy:districtCode "221" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_222
+    a cincy:TaxDistrict ;
+    rdfs:label "Addyston / Miami Twp (District 222)"@en ;
+    cincy:districtCode "222" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "Addyston" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_223
+    a cincy:TaxDistrict ;
+    rdfs:label "Cleves / Miami Twp (District 223)"@en ;
+    cincy:districtCode "223" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "Cleves" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_224
+    a cincy:TaxDistrict ;
+    rdfs:label "North Bend / Miami Twp (District 224)"@en ;
+    cincy:districtCode "224" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "North Bend" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_225
+    a cincy:TaxDistrict ;
+    rdfs:label "Cleves / Miami Twp (District 225)"@en ;
+    cincy:districtCode "225" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "Cleves" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_226
+    a cincy:TaxDistrict ;
+    rdfs:label "North Bend / Miami Twp (District 226)"@en ;
+    cincy:districtCode "226" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "North Bend" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_227
+    a cincy:TaxDistrict ;
+    rdfs:label "Cleves / Miami Twp (District 227)"@en ;
+    cincy:districtCode "227" ;
+    cincy:servesSchoolDistrict cincy:SD_25310 ;
+    cincy:municipalityName "Cleves" ;
+    cincy:townshipName "Miami" .
+
+cincy:TD_233
+    a cincy:TaxDistrict ;
+    rdfs:label "Springfield Twp (District 233)"@en ;
+    cincy:districtCode "233" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_234
+    a cincy:TaxDistrict ;
+    rdfs:label "Wyoming / Springfield Twp (District 234)"@en ;
+    cincy:districtCode "234" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:municipalityName "Wyoming" ;
+    cincy:townshipName "Springfield" .
+
+cincy:TD_236
+    a cincy:TaxDistrict ;
+    rdfs:label "Wyoming (District 236)"@en ;
+    cincy:districtCode "236" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:municipalityName "Wyoming" ;
+    cincy:townshipName "Wyoming" .
+
+cincy:TD_237
+    a cincy:TaxDistrict ;
+    rdfs:label "Greenhills (District 237)"@en ;
+    cincy:districtCode "237" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:municipalityName "Greenhills" ;
+    cincy:townshipName "Greenhills" .
+
+cincy:TD_238
+    a cincy:TaxDistrict ;
+    rdfs:label "Springdale (District 238)"@en ;
+    cincy:districtCode "238" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:municipalityName "Springdale" ;
+    cincy:townshipName "Springdale" .
+
+cincy:TD_239
+    a cincy:TaxDistrict ;
+    rdfs:label "Forest Park (District 239)"@en ;
+    cincy:districtCode "239" ;
+    cincy:servesSchoolDistrict cincy:SD_22190 ;
+    cincy:municipalityName "Forest Park" ;
+    cincy:townshipName "Forest Park" .
+
+cincy:TD_241
+    a cincy:TaxDistrict ;
+    rdfs:label "Wyoming (District 241)"@en ;
+    cincy:districtCode "241" ;
+    cincy:servesSchoolDistrict cincy:SD_26100 ;
+    cincy:municipalityName "Wyoming" ;
+    cincy:townshipName "Wyoming" .

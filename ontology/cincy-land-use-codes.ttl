@@ -2,6 +2,7 @@
 @prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 
 # =============================================================================
 # CONCEPT SCHEME
@@ -11,17 +12,41 @@ cincy:LandUseScheme
     a skos:ConceptScheme ;
     rdfs:label "Hamilton County Land Use Codes"@en ;
     skos:prefLabel "Hamilton County Land Use Codes"@en ;
+    dcterms:source "Ohio Administrative Code Rule 5703-25-10" ;
     skos:definition """Land use classification codes as published by the Hamilton
-    County Auditor, aligned with Ohio Department of Tax Equalization (DTE) codes.
-    Eight top-level categories: Agricultural (100s), Extraction (200s), Industrial
-    (300s), Commercial (400s), Residential (500s), Publicly Owned (600s), Abated
-    (700s), Public Utilities (800s). A parcel's land use code can change between
-    tax years."""@en .
+    County Auditor. The base coding system is defined by Ohio Administrative Code
+    Rule 5703-25-10 (per ORC Section 5713.041), effective for tax year 1985. The
+    first digit identifies the major use and the last two digits the sub-use.
+
+    Eight top-level categories: Agricultural (100s), Mineral Lands & Rights
+    (200s), Industrial (300s), Commercial (400s), Residential (500s), Exempt
+    (600s), Special Tax Abatements (700s), Public Utilities (800s).
+
+    Hamilton County extends the state code list with additional sub-codes
+    (e.g., 351, 404-406, 413, 470-471, 489, 551-558, 625, 750, 760, 881, 999)
+    for local classification needs. A parcel's land use code can change
+    between tax years.
+
+    Ohio law requires each parcel to be classified into one of two
+    assessment classes (ORC 5713.041): (1) Residential and agricultural, or
+    (2) All other (commercial, industrial, mineral, public utility). Improved
+    parcels are classified by principal and current use; vacant parcels are
+    classified by location and highest and best probable legal use.
+
+    For residential codes (500s), the last digit encodes tract size:
+    0 = platted lot, 1 = unplatted 0-9.99 acres, 2 = unplatted 10-19.99
+    acres, 3 = unplatted 20-29.99 acres, 4 = unplatted 30-39.99 acres,
+    5 = unplatted 40+ acres."""@en ;
+    skos:historyNote "Base codes defined by OAC 5703-25-10 effective 1985. Hamilton County extensions added subsequently by the County Auditor."@en .
 
 cincy:LandUseCode
     a rdfs:Class ;
     rdfs:subClassOf skos:Concept ;
-    rdfs:label "Land Use Code"@en .
+    rdfs:label "Land Use Code"@en ;
+    rdfs:comment """A 3-digit classification code for real property. The first digit
+    identifies the major use category and the last two digits the sub-use. Codes
+    are defined by Ohio Administrative Code Rule 5703-25-10 with local Hamilton
+    County extensions."""@en .
 
 # =============================================================================
 # TOP-LEVEL CATEGORIES
@@ -32,35 +57,60 @@ cincy:LU_Agricultural
     skos:inScheme cincy:LandUseScheme ;
     skos:topConceptOf cincy:LandUseScheme ;
     skos:prefLabel "Agricultural"@en ;
-    skos:notation "1xx" .
+    skos:notation "1xx" ;
+    skos:definition """The land and improvements to land used for agricultural
+    purposes, including, but not limited to, general crop farming, dairying,
+    animal and poultry husbandry, market and vegetable gardening, floriculture,
+    nurseries, fruit and nut orchards, vineyards and forestry.
+    (OAC 5703-25-10(B)(1))"""@en .
 
-cincy:LU_Extraction
+cincy:LU_MineralLands
     a cincy:LandUseCode ;
     skos:inScheme cincy:LandUseScheme ;
     skos:topConceptOf cincy:LandUseScheme ;
-    skos:prefLabel "Extraction"@en ;
-    skos:notation "2xx" .
+    skos:prefLabel "Mineral Lands & Rights"@en ;
+    skos:altLabel "Extraction"@en ;
+    skos:notation "2xx" ;
+    skos:definition """Land, and the buildings and improvements thereon, used for
+    mining coal and other minerals as well as the production of oil and gas
+    including the rights to mine and produce such minerals whether separated
+    from the fee or not. (OAC 5703-25-10(B)(2))"""@en .
 
 cincy:LU_Industrial
     a cincy:LandUseCode ;
     skos:inScheme cincy:LandUseScheme ;
     skos:topConceptOf cincy:LandUseScheme ;
     skos:prefLabel "Industrial"@en ;
-    skos:notation "3xx" .
+    skos:notation "3xx" ;
+    skos:definition """The land and improvements to land used for manufacturing,
+    processing, or refining foods and materials, and warehouses used in
+    connection therewith. (OAC 5703-25-10(B)(3))"""@en .
 
 cincy:LU_Commercial
     a cincy:LandUseCode ;
     skos:inScheme cincy:LandUseScheme ;
     skos:topConceptOf cincy:LandUseScheme ;
     skos:prefLabel "Commercial"@en ;
-    skos:notation "4xx" .
+    skos:notation "4xx" ;
+    skos:definition """The land and improvements to land which are owned or occupied
+    for general commercial and income producing purposes and where production of
+    income is a factor to be considered in arriving at true value, including, but
+    not limited to, apartment houses, hotels, motels, theaters, office buildings,
+    warehouses, retail and wholesale stores, bank buildings, commercial garages,
+    commercial parking lots, and shopping centers.
+    (OAC 5703-25-10(B)(4))"""@en .
 
 cincy:LU_Residential
     a cincy:LandUseCode ;
     skos:inScheme cincy:LandUseScheme ;
     skos:topConceptOf cincy:LandUseScheme ;
     skos:prefLabel "Residential"@en ;
-    skos:notation "5xx" .
+    skos:notation "5xx" ;
+    skos:definition """The land and improvements to the land used and occupied by one,
+    two, or three families. (OAC 5703-25-10(B)(5)) For residential codes, the
+    third digit indicates the size of tract: 0 = platted lot, 1 = unplatted
+    0-9.99 acres, 2 = unplatted 10-19.99 acres, 3 = unplatted 20-29.99 acres,
+    4 = unplatted 30-39.99 acres, 5 = unplatted 40+ acres."""@en .
 
 cincy:LU_PubliclyOwned
     a cincy:LandUseCode ;
@@ -191,31 +241,31 @@ cincy:LU_199 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:notation "199" ; skos:prefLabel "Other Agricultural - CAUV"@en .
 
 # =============================================================================
-# EXTRACTION (200s)
+# MINERAL LANDS & RIGHTS (200s)
 # =============================================================================
 
 cincy:LU_210 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "210" ; skos:prefLabel "Coal Lands, Surface Rights"@en .
 
 cincy:LU_220 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "220" ; skos:prefLabel "Coal Rights, Working Interest"@en .
 
 cincy:LU_230 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "230" ; skos:prefLabel "Coal Rights, Separate Royalty Interest"@en .
 
 cincy:LU_240 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "240" ; skos:prefLabel "Oil & Gas Rights, Working Interest"@en .
 
 cincy:LU_250 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "250" ; skos:prefLabel "Oil & Gas Rights, Separate Royalty Interest"@en .
 
 cincy:LU_260 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
-    skos:broader cincy:LU_Extraction ;
+    skos:broader cincy:LU_MineralLands ;
     skos:notation "260" ; skos:prefLabel "Other Minerals"@en .
 
 # =============================================================================
@@ -287,7 +337,7 @@ cincy:LU_399 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:notation "399" ; skos:prefLabel "Other Industrial"@en .
 
 # =============================================================================
-# COMMERCIAL (400s) — selected key codes (full set has 50+ codes)
+# COMMERCIAL (400s)
 # =============================================================================
 
 cincy:LU_400 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
@@ -373,6 +423,178 @@ cincy:LU_469 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
 cincy:LU_495 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_Commercial ;
     skos:notation "495" ; skos:prefLabel "Casino"@en .
+
+cincy:LU_407 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "407" ; skos:prefLabel "Forestry (Commercial)"@en .
+
+cincy:LU_416 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "416" ; skos:prefLabel "Commercial Camp Grounds"@en .
+
+cincy:LU_417 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "417" ; skos:prefLabel "Forestry with Buildings (Commercial)"@en .
+
+cincy:LU_418 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "418" ; skos:prefLabel "Daycare / Private School"@en .
+
+cincy:LU_419 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "419" ; skos:prefLabel "Other Commercial Housing"@en .
+
+cincy:LU_421 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "421" ; skos:prefLabel "Supermarkets"@en .
+
+cincy:LU_422 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "422" ; skos:prefLabel "Discount / Junior Department Stores"@en .
+
+cincy:LU_424 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "424" ; skos:prefLabel "Full-Line Department Stores"@en .
+
+cincy:LU_425 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "425" ; skos:prefLabel "Neighborhood Shopping Center"@en .
+
+cincy:LU_426 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "426" ; skos:prefLabel "Community Shopping Center"@en .
+
+cincy:LU_427 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "427" ; skos:prefLabel "Regional Shopping Center"@en .
+
+cincy:LU_429 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "429" ; skos:prefLabel "Other Retail Structures"@en .
+
+cincy:LU_431 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "431" ; skos:prefLabel "Office / Apartment Over"@en .
+
+cincy:LU_432 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "432" ; skos:prefLabel "Office / Retail Over"@en .
+
+cincy:LU_433 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "433" ; skos:prefLabel "Office / Storage Over"@en .
+
+cincy:LU_434 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "434" ; skos:prefLabel "Bars"@en .
+
+cincy:LU_435 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "435" ; skos:prefLabel "Drive-In Restaurant / Food Service"@en .
+
+cincy:LU_436 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "436" ; skos:prefLabel "Mini Mart"@en .
+
+cincy:LU_439 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "439" ; skos:prefLabel "Other Food Service Structures"@en .
+
+cincy:LU_440 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "440" ; skos:prefLabel "Dry Cleaning Plants & Laundries"@en .
+
+cincy:LU_441 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "441" ; skos:prefLabel "Funeral Homes"@en .
+
+cincy:LU_444 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "444" ; skos:prefLabel "Full Service Banks"@en .
+
+cincy:LU_445 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "445" ; skos:prefLabel "Savings & Loans"@en .
+
+cincy:LU_448 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "448" ; skos:prefLabel "Office (3+ Stories, Walk-Up)"@en .
+
+cincy:LU_450 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "450" ; skos:prefLabel "Condominium Office Units"@en .
+
+cincy:LU_451 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "451" ; skos:prefLabel "Commercial (Unclassified)"@en .
+
+cincy:LU_452 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "452" ; skos:prefLabel "Automotive Service Station"@en .
+
+cincy:LU_453 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "453" ; skos:prefLabel "Car Wash"@en .
+
+cincy:LU_454 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "454" ; skos:prefLabel "Auto Sales & Service"@en .
+
+cincy:LU_455 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "455" ; skos:prefLabel "Commercial Garages"@en .
+
+cincy:LU_460 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "460" ; skos:prefLabel "Theaters"@en .
+
+cincy:LU_461 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "461" ; skos:prefLabel "Drive-In Theaters"@en .
+
+cincy:LU_462 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "462" ; skos:prefLabel "Golf Driving Ranges & Miniature Golf"@en .
+
+cincy:LU_464 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "464" ; skos:prefLabel "Bowling Alleys"@en .
+
+cincy:LU_465 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "465" ; skos:prefLabel "Lodge Halls & Amusement Parks"@en .
+
+cincy:LU_470 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "470" ; skos:prefLabel "Dwelling Used as Office"@en .
+
+cincy:LU_471 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "471" ; skos:prefLabel "Dwelling Used as Retail"@en .
+
+cincy:LU_480 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "480" ; skos:prefLabel "Commercial Warehouses"@en .
+
+cincy:LU_482 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "482" ; skos:prefLabel "Commercial Truck Terminals"@en .
+
+cincy:LU_488 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "488" ; skos:prefLabel "Air Rights"@en .
+
+cincy:LU_489 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "489" ; skos:prefLabel "Commercial / Utility"@en .
+
+cincy:LU_490 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "490" ; skos:prefLabel "Marine Service Facilities"@en .
+
+cincy:LU_496 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Commercial ;
+    skos:notation "496" ; skos:prefLabel "Marina (Small Boat)"@en .
 
 cincy:LU_499 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_Commercial ;
@@ -461,6 +683,98 @@ cincy:LU_561D a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_Residential ;
     skos:notation "561 D" ; skos:prefLabel "Depreciated Manufactured Home"@en .
 
+cincy:LU_507 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "507" ; skos:prefLabel "Forestry (Residential)"@en .
+
+cincy:LU_508 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "508" ; skos:prefLabel "Street"@en .
+
+cincy:LU_511 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "511" ; skos:prefLabel "Single Family Unplatted 0-9 Acres"@en .
+
+cincy:LU_512 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "512" ; skos:prefLabel "Single Family Unplatted 10-19 Acres"@en .
+
+cincy:LU_513 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "513" ; skos:prefLabel "Single Family Unplatted 20-29 Acres"@en .
+
+cincy:LU_514 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "514" ; skos:prefLabel "Single Family Unplatted 30-39 Acres"@en .
+
+cincy:LU_515 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "515" ; skos:prefLabel "Single Family Unplatted 40+ Acres"@en .
+
+cincy:LU_517 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "517" ; skos:prefLabel "Forestry with Buildings (Residential)"@en .
+
+cincy:LU_521 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "521" ; skos:prefLabel "Two Family Unplatted 0-9 Acres"@en .
+
+cincy:LU_522 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "522" ; skos:prefLabel "Two Family Unplatted 10-19 Acres"@en .
+
+cincy:LU_523 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "523" ; skos:prefLabel "Two Family Unplatted 20-29 Acres"@en .
+
+cincy:LU_524 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "524" ; skos:prefLabel "Two Family Unplatted 30-39 Acres"@en .
+
+cincy:LU_525 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "525" ; skos:prefLabel "Two Family Unplatted 40+ Acres"@en .
+
+cincy:LU_531 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "531" ; skos:prefLabel "Three Family Unplatted 0-9 Acres"@en .
+
+cincy:LU_532 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "532" ; skos:prefLabel "Three Family Unplatted 10-19 Acres"@en .
+
+cincy:LU_533 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "533" ; skos:prefLabel "Three Family Unplatted 20-29 Acres"@en .
+
+cincy:LU_534 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "534" ; skos:prefLabel "Three Family Unplatted 30-39 Acres"@en .
+
+cincy:LU_535 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "535" ; skos:prefLabel "Three Family Unplatted 40+ Acres"@en .
+
+cincy:LU_540 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "540" ; skos:prefLabel "Four Family Dwelling"@en .
+
+cincy:LU_554 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "554" ; skos:prefLabel "Cabana (Condo)"@en .
+
+cincy:LU_557 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "557" ; skos:prefLabel "Condo Parking Space"@en .
+
+cincy:LU_560 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "560" ; skos:prefLabel "Mobile Home / House Trailer (Affixed)"@en .
+
+cincy:LU_588 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_Residential ;
+    skos:notation "588" ; skos:prefLabel "Road Easement"@en .
+
 cincy:LU_599 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_Residential ;
     skos:notation "599" ; skos:prefLabel "Other Residential Structures"@en .
@@ -480,6 +794,11 @@ cincy:LU_610 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
 cincy:LU_620 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_PubliclyOwned ;
     skos:notation "620" ; skos:prefLabel "Hamilton County"@en .
+
+cincy:LU_625 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:broader cincy:LU_PubliclyOwned ;
+    skos:notation "625" ; skos:prefLabel "Land Bank Owned"@en ;
+    skos:definition "Property held by the Hamilton County Land Reutilization Corporation (Land Bank), an intermediary owner facilitating return of tax-delinquent properties to productive use."@en .
 
 cincy:LU_630 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_PubliclyOwned ;
@@ -593,6 +912,14 @@ cincy:LU_880 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
 cincy:LU_881 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
     skos:broader cincy:LU_PublicUtilities ;
     skos:notation "881" ; skos:prefLabel "Public Utility Personal Property"@en .
+
+# =============================================================================
+# MINERAL RIGHTS (999)
+# =============================================================================
+
+cincy:LU_999 a cincy:LandUseCode ; skos:inScheme cincy:LandUseScheme ;
+    skos:notation "999" ; skos:prefLabel "Mineral Rights"@en ;
+    skos:definition "Separately assessed mineral rights interests not otherwise classified above."@en .
 
 # =============================================================================
 # TRANSFER TYPE SCHEME

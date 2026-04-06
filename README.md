@@ -31,7 +31,7 @@ This ontology covers:
 - **Valuation & Assessment:** Land, improvements, agricultural use values; exempt and abated amounts
 - **Taxation:** Tax districts, school districts, levies, tax bills
 - **Temporal data:** Tax year snapshots, owner-occupied status, homestead exemptions, rental registration
-- **Land use:** 8 top-level categories (Agricultural, Extraction, Industrial, Commercial, Residential, Publicly Owned, Abated, Public Utilities)
+- **Land use:** 8 top-level categories per OAC 5703-25-10 (Agricultural, Mineral Lands & Rights, Industrial, Commercial, Residential, Exempt, Special Tax Abatements, Public Utilities)
 
 ## Standards & Imports
 
