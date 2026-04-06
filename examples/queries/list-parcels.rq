@@ -1,0 +1,12 @@
+# List all parcels in the knowledge graph
+# Use case: Discover what parcels are available in the dataset
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?parcel ?label
+WHERE {
+  ?parcel a cincy:Parcel ;
+          rdfs:label ?label .
+}
+LIMIT 100

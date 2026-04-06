@@ -1,0 +1,46 @@
+# RDF/Turtle file formats
+*.nq
+*.nt
+*.ntriples
+*.rj
+*.jsonld
+
+# Protégé
+*.pproj
+*.pproj.*
+
+# IDE and editor artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+env/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+/build/
+/dist/
+*.egg-info/
+
+# Cache files
+.cache/
+*.cache
+.pytest_cache/
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/

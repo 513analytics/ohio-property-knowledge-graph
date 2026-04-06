@@ -1,0 +1,22 @@
+# Find all residential properties for a given tax year
+# Use case: Filter properties by land use classification
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?parcel ?parcelYearState ?landUseCode ?landUseLabel
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:hasParcelYearState ?parcelYearState .
+
+  ?parcelYearState cincy:taxYear "2025"^^xsd:gYear ;
+                   cincy:landUseCode ?landUseCode .
+
+  # Filter for Residential codes (5xx range)
+  ?landUseCode skos:notation ?notation ;
+               skos:prefLabel ?landUseLabel .
+
+  FILTER (REGEX(?notation, "^5"))  # 5xx codes = Residential
+}
+LIMIT 50

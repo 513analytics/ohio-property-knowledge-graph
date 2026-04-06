@@ -1,0 +1,637 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix schema:  <https://schema.org/> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ladm:    <http://www.iso.org/19152/ladm#> .
+
+# =============================================================================
+# ONTOLOGY DECLARATION
+# =============================================================================
+
+<http://kg.513analytics.com/ont/cincy>
+    a owl:Ontology ;
+    rdfs:label "cincinnati Housing Knowledge Graph Ontology"@en ;
+    dcterms:description """Ontology for modeling Hamilton County, Ohio real property
+    data as maintained by the County Auditor. Covers parcels, ownership, valuation,
+    taxation, land use classification, abatements, TIF districts, and rental
+    registration. Aligned with ISO 19152 LADM, OGC GeoSPARQL 1.1, W3C SKOS,
+    W3C OWL-Time, schema.org, and QUDT."""@en ;
+    dcterms:creator "513 Analytics" ;
+    dcterms:created "2026-04-05"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <http://www.opengis.net/ont/geosparql> ,
+                <http://www.w3.org/2004/02/skos/core> ,
+                <http://www.w3.org/2006/time> .
+
+# =============================================================================
+# CLASSES
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# 1. PARCEL — the central cadastral entity
+# ---------------------------------------------------------------------------
+
+cincy:Parcel
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature , ladm:LA_SpatialUnit ;
+    rdfs:label "Parcel"@en ;
+    rdfs:comment """A legally defined unit of land in Hamilton County, identified by
+    a composite key: book + page + parcel-ID-on-page + mltown = auditor parcel
+    number. The parcel is the Auditor's fundamental unit of real property."""@en .
+
+# ---------------------------------------------------------------------------
+# 2. PARCEL YEAR STATE — time-varying attributes that change each tax year
+# ---------------------------------------------------------------------------
+
+cincy:ParcelYearState
+    a owl:Class ;
+    rdfs:label "Parcel Year State"@en ;
+    rdfs:comment """A snapshot of a parcel's mutable attributes for a single tax
+    year. Land use code, owner-occupied status, homestead exemption, rental
+    registration, new-construction flag, recently-divided flag, and board-of-
+    revision dispute status can all change between tax years. Each ParcelYearState
+    links to exactly one Parcel and one tax year."""@en .
+
+# ---------------------------------------------------------------------------
+# 3. PARTIES — owners, mortgage servicers, rental contacts
+# ---------------------------------------------------------------------------
+
+cincy:Party
+    a owl:Class ;
+    rdfs:subClassOf ladm:LA_Party ;
+    rdfs:label "Party"@en ;
+    rdfs:comment "Abstract. A person or organization involved in property ownership or administration."@en .
+
+cincy:Person
+    a owl:Class ;
+    rdfs:subClassOf cincy:Party , schema:Person ;
+    rdfs:label "Person"@en .
+
+cincy:Organization
+    a owl:Class ;
+    rdfs:subClassOf cincy:Party , schema:Organization ;
+    rdfs:label "Organization"@en .
+
+cincy:LLC
+    a owl:Class ;
+    rdfs:subClassOf cincy:Organization ;
+    rdfs:label "Limited Liability Company"@en .
+
+cincy:Trust
+    a owl:Class ;
+    rdfs:subClassOf cincy:Organization ;
+    rdfs:label "Trust"@en .
+
+cincy:GovernmentEntity
+    a owl:Class ;
+    rdfs:subClassOf cincy:Organization ;
+    rdfs:label "Government Entity"@en .
+
+cincy:NonProfit
+    a owl:Class ;
+    rdfs:subClassOf cincy:Organization ;
+    rdfs:label "Non-Profit Organization"@en .
+
+cincy:MortgageServicer
+    a owl:Class ;
+    rdfs:subClassOf cincy:Organization ;
+    rdfs:label "Mortgage Servicer"@en ;
+    rdfs:comment "Mortgage provider or designee who receives tax bills on behalf of the owner."@en .
+
+# ---------------------------------------------------------------------------
+# 4. VALUATION & ASSESSMENT
+# ---------------------------------------------------------------------------
+
+cincy:Assessment
+    a owl:Class ;
+    rdfs:label "Assessment"@en ;
+    rdfs:comment """A time-bound valuation record for a parcel. Ohio reappraises on
+    a 6-year cycle with triennial updates. Produces three value components: land,
+    improvements (structures), and agricultural use (CAUV). The total assessed
+    value is the sum. Taxable value is the total minus any exemption, abatement,
+    or TIF reduction amounts."""@en .
+
+# ---------------------------------------------------------------------------
+# 5. TAXATION
+# ---------------------------------------------------------------------------
+
+cincy:TaxDistrict
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Tax District"@en ;
+    rdfs:comment """A geographic area that determines which levies apply to parcels
+    within it. Each parcel is in exactly one tax district. Tax districts are
+    composites of overlapping jurisdictions (city, county, school, library,
+    park, etc.)."""@en .
+
+cincy:SchoolDistrict
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "School District"@en ;
+    rdfs:comment "School districts are tracked separately because they are the largest recipients of property tax revenue."@en .
+
+cincy:Levy
+    a owl:Class ;
+    rdfs:label "Levy"@en ;
+    rdfs:comment "An individual tax levy (voted or unvoted) within a tax district. Tax is assessed against millage."@en .
+
+cincy:TaxBill
+    a owl:Class ;
+    rdfs:label "Tax Bill"@en ;
+    rdfs:comment "The computed tax obligation for a parcel in a given tax year."@en .
+
+# ---------------------------------------------------------------------------
+# 6. TAX INCENTIVE / EXEMPT STRUCTURES
+# ---------------------------------------------------------------------------
+
+cincy:TIFDistrict
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "TIF District"@en ;
+    rdfs:comment """Tax Increment Financing district. Revenue above a base-year
+    assessed value is diverted to fund infrastructure improvements."""@en .
+
+cincy:TaxReduction
+    a owl:Class ;
+    rdfs:label "Tax Reduction"@en ;
+    rdfs:comment """A reduction in the taxable value of a parcel. Covers abatements
+    (CRA, enterprise zone, etc.), TIF diversions, and full exemptions for
+    publicly owned or non-profit properties. The reduction is an integer dollar
+    amount subtracted from the total assessed value — not a percentage."""@en .
+
+cincy:Abatement
+    a owl:Class ;
+    rdfs:subClassOf cincy:TaxReduction ;
+    rdfs:label "Abatement"@en ;
+    rdfs:comment """A time-limited reduction of taxable value for new construction or
+    renovation. Classified in the 700s land use codes. The abatement amount is
+    an integer dollar value less than or equal to the total assessed value."""@en .
+
+cincy:TIFReduction
+    a owl:Class ;
+    rdfs:subClassOf cincy:TaxReduction ;
+    rdfs:label "TIF Reduction"@en ;
+    rdfs:comment "The dollar amount of assessed value diverted to a TIF district."@en .
+
+cincy:Exemption
+    a owl:Class ;
+    rdfs:subClassOf cincy:TaxReduction ;
+    rdfs:label "Exemption"@en ;
+    rdfs:comment """Full or partial exemption from property tax. Publicly owned (600s)
+    and non-profit owned properties are typically fully exempt. The exemption
+    amount is an integer dollar value."""@en .
+
+# ---------------------------------------------------------------------------
+# 7. TRANSFER EVENTS
+# ---------------------------------------------------------------------------
+
+cincy:TransferEvent
+    a owl:Class ;
+    rdfs:label "Transfer Event"@en ;
+    rdfs:comment """Records an ownership change. Carries sale price, deed type,
+    instrument number. Foundation for investor activity analysis."""@en .
+
+# ---------------------------------------------------------------------------
+# 8. RENTAL REGISTRATION
+# ---------------------------------------------------------------------------
+
+cincy:RentalRegistration
+    a owl:Class ;
+    rdfs:label "Rental Registration"@en ;
+    rdfs:comment """A registration record for a rental property as required by the
+    Hamilton County Auditor. Includes the contact person name extracted via OCR
+    from the registration PDF."""@en .
+
+# ---------------------------------------------------------------------------
+# 9. BOARD OF REVISION DISPUTE
+# ---------------------------------------------------------------------------
+
+cincy:BoardOfRevisionDispute
+    a owl:Class ;
+    rdfs:label "Board of Revision Dispute"@en ;
+    rdfs:comment """A record that the owner disputed an assessment before the Board
+    of Revision. The disputed value details are trapped in PDF documents and not
+    currently available; only the year(s) of dispute are captured."""@en .
+
+# =============================================================================
+# OBJECT PROPERTIES
+# =============================================================================
+
+# --- Parcel → Party ---
+
+cincy:ownedBy
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Party ;
+    rdfs:label "owned by"@en ;
+    rdfs:comment """The auditor tracks the parcel owner only. If land is leased and
+    a structure is owned by a different party, the auditor records the landowner.
+    This relationship is temporal — use time:hasBeginning / time:hasEnd or
+    the ParcelYearState to track ownership periods."""@en ;
+    owl:inverseOf cincy:owns .
+
+cincy:owns
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Party ;
+    rdfs:range cincy:Parcel ;
+    rdfs:label "owns"@en ;
+    owl:inverseOf cincy:ownedBy .
+
+# --- Parcel → year state ---
+
+cincy:hasYearState
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:ParcelYearState ;
+    rdfs:label "has year state"@en .
+
+# --- ParcelYearState → classification ---
+
+cincy:hasLandUse
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range cincy:LandUseCode ;
+    rdfs:label "has land use"@en ;
+    rdfs:comment "The Ohio DTE / Hamilton County land use code for this parcel in this tax year."@en .
+
+# --- Tax bill routing ---
+
+cincy:taxBillRecipient
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Party ;
+    rdfs:label "tax bill recipient"@en ;
+    rdfs:comment "Who receives the tax bill. Often a mortgage servicer rather than the owner."@en .
+
+# --- Parcel → geographic districts ---
+
+cincy:inTaxDistrict
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:TaxDistrict ;
+    rdfs:label "in tax district"@en .
+
+cincy:inSchoolDistrict
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:SchoolDistrict ;
+    rdfs:label "in school district"@en .
+
+cincy:inTIFDistrict
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:TIFDistrict ;
+    rdfs:label "in TIF district"@en .
+
+# --- Assessment ---
+
+cincy:hasAssessment
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Assessment ;
+    rdfs:label "has assessment"@en .
+
+# --- Tax reductions ---
+
+cincy:hasTaxReduction
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range cincy:TaxReduction ;
+    rdfs:label "has tax reduction"@en ;
+    rdfs:comment "Links a parcel's year state to any abatement, TIF reduction, or exemption. Multiple may apply."@en .
+
+# --- Transfers ---
+
+cincy:hasTransfer
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:TransferEvent ;
+    rdfs:label "has transfer"@en .
+
+cincy:fromParty
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range cincy:Party ;
+    rdfs:label "from party (seller/grantor)"@en .
+
+cincy:toParty
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range cincy:Party ;
+    rdfs:label "to party (buyer/grantee)"@en .
+
+# --- Spatial ---
+
+cincy:adjacentTo
+    a owl:ObjectProperty , owl:SymmetricProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Parcel ;
+    rdfs:label "adjacent to"@en ;
+    rdfs:comment "Computed from geo:sfTouches on parcel geometries."@en .
+
+cincy:subdividedFrom
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Parcel ;
+    rdfs:label "subdivided from"@en ;
+    rdfs:comment "Tracks parcel lineage when a parcel is divided."@en .
+
+# --- Rental registration ---
+
+cincy:hasRentalRegistration
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range cincy:RentalRegistration ;
+    rdfs:label "has rental registration"@en .
+
+# --- BoR dispute ---
+
+cincy:hasBoRDispute
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range cincy:BoardOfRevisionDispute ;
+    rdfs:label "has Board of Revision dispute"@en .
+
+# --- Levy → Tax District ---
+
+cincy:hasLevy
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range cincy:Levy ;
+    rdfs:label "has levy"@en .
+
+# =============================================================================
+# DATA PROPERTIES
+# =============================================================================
+
+# --- Parcel identification (immutable) ---
+
+cincy:parcelNumber
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range xsd:string ;
+    rdfs:label "parcel number"@en ;
+    rdfs:comment "Composite auditor ID: book + page + parcel-on-page + mltown."@en .
+
+cincy:book
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range xsd:string ;
+    rdfs:label "plat book"@en .
+
+cincy:page
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range xsd:string ;
+    rdfs:label "plat page"@en .
+
+cincy:parcelIdOnPage
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range xsd:string ;
+    rdfs:label "parcel ID on page"@en .
+
+cincy:mltown
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range xsd:string ;
+    rdfs:label "mltown code"@en ;
+    rdfs:comment "Municipality/township code digits."@en .
+
+# --- Party ---
+
+cincy:ownerAddress
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Party ;
+    rdfs:range schema:PostalAddress ;
+    rdfs:label "owner address"@en .
+
+cincy:mailingAddress
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Party ;
+    rdfs:range schema:PostalAddress ;
+    rdfs:label "mailing address"@en ;
+    rdfs:comment "Where the tax bill is sent."@en .
+
+# --- ParcelYearState flags ---
+
+cincy:taxYear
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "tax year"@en .
+
+cincy:isOwnerOccupied
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "owner occupied (2.5% eligible)"@en ;
+    rdfs:comment """Flag for owner-occupied status. Also known as '2_5' in the data.
+    Eligible for 2.5% tax rollback reimbursed by the State of Ohio."""@en .
+
+cincy:hasHomesteadExemption
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "homestead exemption"@en ;
+    rdfs:comment "State reimburses taxes on the first $75,000 of assessed value."@en .
+
+cincy:isRentalRegistered
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "rental registered"@en .
+
+cincy:isNewConstruction
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "new construction"@en .
+
+cincy:wasRecentlyDivided
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "recently divided"@en .
+
+# --- Assessment values ---
+
+cincy:assessedLandValue
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Assessment ;
+    rdfs:range xsd:integer ;
+    rdfs:label "assessed land value (USD)"@en .
+
+cincy:assessedImprovementValue
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Assessment ;
+    rdfs:range xsd:integer ;
+    rdfs:label "assessed improvement value (USD)"@en ;
+    rdfs:comment "Value of structures on the parcel."@en .
+
+cincy:assessedAgValue
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Assessment ;
+    rdfs:range xsd:integer ;
+    rdfs:label "assessed agricultural (CAUV) value (USD)"@en .
+
+cincy:totalAssessedValue
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Assessment ;
+    rdfs:range xsd:integer ;
+    rdfs:label "total assessed value (USD)"@en .
+
+cincy:assessmentYear
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Assessment ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "assessment year"@en .
+
+# --- Tax reduction (abatement / TIF / exemption) ---
+
+cincy:reductionAmount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxReduction ;
+    rdfs:range xsd:integer ;
+    rdfs:label "reduction amount (USD)"@en ;
+    rdfs:comment """An integer dollar amount subtracted from total assessed value.
+    Must be less than or equal to the total assessed value."""@en .
+
+cincy:reductionType
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxReduction ;
+    rdfs:range xsd:string ;
+    rdfs:label "reduction type"@en ;
+    rdfs:comment "e.g., CRA (710), Enterprise Zone (750), Exempt (600s), TIF."@en .
+
+cincy:reductionStartDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxReduction ;
+    rdfs:range xsd:date ;
+    rdfs:label "reduction start date"@en .
+
+cincy:reductionEndDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxReduction ;
+    rdfs:range xsd:date ;
+    rdfs:label "reduction end date"@en .
+
+# --- Levy / millage ---
+
+cincy:millageRate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Levy ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "millage rate"@en ;
+    rdfs:comment "Rate in mills. 1 mill = $1 per $1,000 of taxable value."@en .
+
+cincy:effectiveRate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Levy ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "effective rate"@en ;
+    rdfs:comment "Effective rate after HB 920 reduction factors."@en .
+
+cincy:levyType
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Levy ;
+    rdfs:range xsd:string ;
+    rdfs:label "levy type"@en .
+
+# --- Tax bill ---
+
+cincy:grossTax
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxBill ;
+    rdfs:range xsd:integer ;
+    rdfs:label "gross tax (USD)"@en .
+
+cincy:ownerOccupancyCredit
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxBill ;
+    rdfs:range xsd:integer ;
+    rdfs:label "owner occupancy credit (USD)"@en ;
+    rdfs:comment "2.5% rollback reimbursed by the State of Ohio."@en .
+
+cincy:homesteadReduction
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxBill ;
+    rdfs:range xsd:integer ;
+    rdfs:label "homestead reduction (USD)"@en .
+
+cincy:netTax
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxBill ;
+    rdfs:range xsd:integer ;
+    rdfs:label "net tax (USD)"@en .
+
+# --- Transfer event ---
+
+cincy:salePrice
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:integer ;
+    rdfs:label "sale price (USD)"@en .
+
+cincy:transferDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:date ;
+    rdfs:label "transfer date"@en .
+
+cincy:instrumentNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "instrument number"@en .
+
+cincy:deedType
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "deed type"@en .
+
+# --- Rental registration ---
+
+cincy:rentalContactName
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:RentalRegistration ;
+    rdfs:range xsd:string ;
+    rdfs:label "rental contact person name"@en ;
+    rdfs:comment "Extracted via OCR from the rental registration PDF."@en .
+
+cincy:rentalRegistrationYear
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:RentalRegistration ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "rental registration year"@en .
+
+# --- Board of Revision ---
+
+cincy:disputeYear
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:BoardOfRevisionDispute ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "dispute year"@en ;
+    rdfs:comment "Year the owner went before the Board of Revision. Disputed value details are not available (trapped in PDFs)."@en .
+
+# --- TIF District ---
+
+cincy:baseYear
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TIFDistrict ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "TIF base year"@en .
+
+cincy:districtCode
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range xsd:string ;
+    rdfs:label "district code"@en .

@@ -1,0 +1,131 @@
+# Ontology Validation Tests
+# Run these SPARQL ASK queries to validate the ontology structure
+# All queries should return TRUE
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# ============================================================================
+# TEST 1: Core Classes Exist
+# ============================================================================
+
+# Test: Parcel class is defined
+ASK WHERE {
+  cincy:Parcel a owl:Class .
+} ;
+
+# Test: ParcelYearState class is defined
+ASK WHERE {
+  cincy:ParcelYearState a owl:Class .
+} ;
+
+# Test: Party class is defined
+ASK WHERE {
+  cincy:Party a owl:Class .
+} ;
+
+# Test: Person class is defined
+ASK WHERE {
+  cincy:Person a owl:Class .
+} ;
+
+# Test: Organization class is defined
+ASK WHERE {
+  cincy:Organization a owl:Class .
+} ;
+
+# Test: Assessment class is defined
+ASK WHERE {
+  cincy:Assessment a owl:Class .
+} ;
+
+# Test: TaxDistrict class is defined
+ASK WHERE {
+  cincy:TaxDistrict a owl:Class .
+} ;
+
+# Test: Exemption class is defined
+ASK WHERE {
+  cincy:Exemption a owl:Class .
+} ;
+
+# Test: Abatement class is defined
+ASK WHERE {
+  cincy:Abatement a owl:Class .
+} ;
+
+# ============================================================================
+# TEST 2: Class Hierarchy
+# ============================================================================
+
+# Test: Person is subclass of Party
+ASK WHERE {
+  cincy:Person rdfs:subClassOf cincy:Party .
+} ;
+
+# Test: Organization is subclass of Party
+ASK WHERE {
+  cincy:Organization rdfs:subClassOf cincy:Party .
+} ;
+
+# Test: LLC is subclass of Organization
+ASK WHERE {
+  cincy:LLC rdfs:subClassOf cincy:Organization .
+} ;
+
+# Test: Trust is subclass of Organization
+ASK WHERE {
+  cincy:Trust rdfs:subClassOf cincy:Organization .
+} ;
+
+# ============================================================================
+# TEST 3: Land Use Vocabulary (SKOS)
+# ============================================================================
+
+# Test: LandUseScheme is defined
+ASK WHERE {
+  cincy:LandUseScheme a skos:ConceptScheme .
+} ;
+
+# Test: LandUseCode class is defined
+ASK WHERE {
+  cincy:LandUseCode a rdfs:Class .
+} ;
+
+# Test: Agricultural category exists
+ASK WHERE {
+  cincy:LU_Agricultural a cincy:LandUseCode ;
+                         skos:notation "1xx" .
+} ;
+
+# Test: Residential category exists
+ASK WHERE {
+  cincy:LU_Residential a cincy:LandUseCode ;
+                        skos:notation "5xx" .
+} ;
+
+# ============================================================================
+# TEST 4: Ontology Metadata
+# ============================================================================
+
+# Test: Ontology IRI is defined
+ASK WHERE {
+  <http://kg.513analytics.com/ont/cincy> a owl:Ontology .
+} ;
+
+# Test: Ontology has version info
+ASK WHERE {
+  <http://kg.513analytics.com/ont/cincy> owl:versionInfo ?version .
+} ;
+
+# Test: Ontology imports GeoSPARQL
+ASK WHERE {
+  <http://kg.513analytics.com/ont/cincy> owl:imports <http://www.opengis.net/ont/geosparql> .
+} ;
+
+# Test: Ontology imports SKOS
+ASK WHERE {
+  <http://kg.513analytics.com/ont/cincy> owl:imports <http://www.w3.org/2004/02/skos/core> .
+} ;
