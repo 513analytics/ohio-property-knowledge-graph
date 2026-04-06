@@ -23,6 +23,21 @@ The assessed value of agricultural land based on its capacity to produce income,
 **Cadastral**
 Relating to a cadastre — an official register or map of properties, their ownership, and boundaries. The Parcel is the basic cadastral unit.
 
+**Census Block**
+The smallest U.S. Census Bureau geographic unit, bounded by streets, waterways, or other visible features. Identified by a 15-digit GEOID. Every parcel in Hamilton County maps to exactly one census block.
+
+**Census Tract**
+A U.S. Census Bureau statistical subdivision of a county designed to contain roughly 1,200–8,000 people with relatively homogeneous population characteristics. Identified by an 11-digit GEOID. Census tracts are the standard unit for neighborhood-level demographic and housing analysis.
+
+**GEOID (Census)**
+A standardized numeric identifier for Census geographic units. Built by concatenating FIPS codes: state (2 digits) + county (3 digits) + tract (6 digits) + block (4 digits, blocks only). Hamilton County's FIPS code is `39061` (Ohio = 39, Hamilton = 061).
+
+**Delinquent / Delinquency**
+A formal designation that a parcel carries an unpaid tax balance that survived the Treasurer's end-of-year reconciliation and was placed on the Hamilton County delinquent land list. A parcel is *unpaid* if it simply has an outstanding balance; it becomes *delinquent* only when that balance persists through year-end. Delinquent parcels are subject to foreclosure by the county or its third-party collector if the balance remains unpaid the following year. The Auditor flags each delinquent parcel with the current delinquent dollar amount.
+
+**Delinquency Penalty**
+An interest or penalty charge assessed on a past-due tax installment. Ohio law (ORC 323.121) prescribes penalty rates for late payment, which accrue until the balance is paid or a repayment contract is entered.
+
 **Exemption**
 Tax relief based on property type or ownership status. Common exemptions include:
 - **Homestead Exemption** — for owner-occupied residential properties
@@ -74,6 +89,9 @@ A geographic area that determines which levies apply to parcels within it. Each 
 
 **TIF District (Tax Increment Financing)**
 A geographic area where increases in property tax revenue from new development are captured and reinvested in district improvements (infrastructure, schools, etc.). Properties in TIF districts may receive abatements.
+
+**Repayment Contract (Delinquent Tax)**
+A formal agreement between a delinquent property owner and the Hamilton County Auditor to repay a delinquent tax balance over time. A parcel under an active repayment contract is still delinquent, but is protected from active foreclosure proceedings as long as scheduled payments remain current. The Auditor flags parcels under contract separately from those with unpaid delinquent balances and no contract.
 
 **Tenure**
 The legal relationship between a person/organization and property (ownership, mortgage, easement, etc.).

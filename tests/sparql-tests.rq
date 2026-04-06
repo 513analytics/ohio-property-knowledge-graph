@@ -56,6 +56,21 @@ ASK WHERE {
   cincy:Abatement a owl:Class .
 } ;
 
+# Test: DelinquencyRecord class is defined
+ASK WHERE {
+  cincy:DelinquencyRecord a owl:Class .
+} ;
+
+# Test: CensusTract class is defined
+ASK WHERE {
+  cincy:CensusTract a owl:Class .
+} ;
+
+# Test: CensusBlock class is defined
+ASK WHERE {
+  cincy:CensusBlock a owl:Class .
+} ;
+
 # ============================================================================
 # TEST 2: Class Hierarchy
 # ============================================================================

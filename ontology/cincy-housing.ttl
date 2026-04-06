@@ -236,12 +236,53 @@ cincy:RentalRegistration
 # 9. BOARD OF REVISION DISPUTE
 # ---------------------------------------------------------------------------
 
+
 cincy:BoardOfRevisionDispute
     a owl:Class ;
     rdfs:label "Board of Revision Dispute"@en ;
     rdfs:comment """A record that the owner disputed an assessment before the Board
     of Revision. The disputed value details are trapped in PDF documents and not
     currently available; only the year(s) of dispute are captured."""@en .
+
+# ---------------------------------------------------------------------------
+# 10. TAX DELINQUENCY
+# ---------------------------------------------------------------------------
+
+cincy:DelinquencyRecord
+    a owl:Class ;
+    rdfs:label "Delinquency Record"@en ;
+    rdfs:comment """A formal designation that a parcel carries an unpaid tax balance
+    that survived end-of-year Treasurer reconciliation and was added to the
+    Hamilton County delinquent land list. Distinct from merely having an unpaid
+    installment: a parcel must carry the balance through the annual reconciliation
+    to become delinquent. Delinquent parcels are subject to county or third-party
+    collector foreclosure if the balance remains unpaid the following year. The
+    Auditor records the current delinquent balance and whether the owner has
+    entered a formal repayment contract."""@en .
+
+# ---------------------------------------------------------------------------
+# 11. CENSUS GEOGRAPHY
+# ---------------------------------------------------------------------------
+
+cincy:CensusTract
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Census Tract"@en ;
+    rdfs:comment """A U.S. Census Bureau statistical subdivision of a county,
+    designed to contain roughly 1,200–8,000 people with relatively homogeneous
+    population characteristics. Identified by an 11-digit GEOID (2-digit state
+    FIPS + 3-digit county FIPS + 6-digit tract code). Hamilton County census
+    tracts are the standard unit for neighborhood-level analysis."""@en .
+
+cincy:CensusBlock
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Census Block"@en ;
+    rdfs:comment """The smallest U.S. Census Bureau geographic unit, typically
+    bounded by streets, waterways, or other visible features. Identified by a
+    15-digit GEOID (2-digit state FIPS + 3-digit county FIPS + 6-digit tract
+    code + 4-digit block number). Every parcel can be assigned to exactly one
+    census block."""@en .
 
 # =============================================================================
 # OBJECT PROPERTIES
@@ -408,6 +449,45 @@ cincy:hasBoRDispute
     rdfs:domain cincy:ParcelYearState ;
     rdfs:range cincy:BoardOfRevisionDispute ;
     rdfs:label "has Board of Revision dispute"@en .
+
+# --- Census geography ---
+
+cincy:inCensusTract
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:CensusTract ;
+    rdfs:label "in census tract"@en .
+
+cincy:inCensusBlock
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:CensusBlock ;
+    rdfs:label "in census block"@en .
+
+cincy:tractContainsBlock
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:CensusTract ;
+    rdfs:range cincy:CensusBlock ;
+    rdfs:label "tract contains block"@en ;
+    owl:inverseOf cincy:blockInTract .
+
+cincy:blockInTract
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:CensusBlock ;
+    rdfs:range cincy:CensusTract ;
+    rdfs:label "block in tract"@en ;
+    owl:inverseOf cincy:tractContainsBlock .
+
+# --- Tax delinquency ---
+
+cincy:hasDelinquencyRecord
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:DelinquencyRecord ;
+    rdfs:label "has delinquency record"@en ;
+    rdfs:comment """Links a parcel to its formal delinquency record on the Hamilton
+    County delinquent land list. A parcel may have at most one active record at
+    a time; the record persists until the delinquent balance is paid in full."""@en .
 
 # --- Levy → Tax District ---
 
@@ -679,6 +759,65 @@ cincy:disputeYear
     rdfs:range xsd:gYear ;
     rdfs:label "dispute year"@en ;
     rdfs:comment "Year the owner went before the Board of Revision. Disputed value details are not available (trapped in PDFs)."@en .
+
+# --- Census geography ---
+
+cincy:tractGEOID
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cincy:CensusTract ;
+    rdfs:range xsd:string ;
+    rdfs:label "census tract GEOID"@en ;
+    rdfs:comment "11-digit Census GEOID: 2-digit state FIPS + 3-digit county FIPS + 6-digit tract code. Example: 39061002700 (Ohio, Hamilton County, tract 0027.00)."@en .
+
+cincy:tractNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:CensusTract ;
+    rdfs:range xsd:string ;
+    rdfs:label "census tract number"@en ;
+    rdfs:comment "6-digit tract code as published by the Census Bureau (e.g., 002700 for tract 0027.00)."@en .
+
+cincy:blockGEOID
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain cincy:CensusBlock ;
+    rdfs:range xsd:string ;
+    rdfs:label "census block GEOID"@en ;
+    rdfs:comment "15-digit Census GEOID: 2-digit state FIPS + 3-digit county FIPS + 6-digit tract code + 4-digit block number. Example: 390610027001001."@en .
+
+cincy:blockNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:CensusBlock ;
+    rdfs:range xsd:string ;
+    rdfs:label "census block number"@en ;
+    rdfs:comment "4-digit block number within its census tract (e.g., 1001)."@en .
+
+# --- Tax delinquency ---
+
+cincy:delinquentAmount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:DelinquencyRecord ;
+    rdfs:range xsd:integer ;
+    rdfs:label "delinquent amount (USD)"@en ;
+    rdfs:comment """The total unpaid tax balance flagged by the Auditor at the time
+    of the delinquency designation. May include penalty assessed on the past-due
+    installment(s)."""@en .
+
+cincy:delinquentYear
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:DelinquencyRecord ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "delinquent year"@en ;
+    rdfs:comment """The tax year in which the unpaid balance survived Treasurer
+    end-of-year reconciliation and the parcel was placed on the delinquent land
+    list."""@en .
+
+cincy:isUnderRepaymentContract
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:DelinquencyRecord ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "under repayment contract"@en ;
+    rdfs:comment """True if the owner has entered a formal delinquent tax repayment
+    contract with the Auditor. A parcel under contract is still delinquent but
+    protected from active foreclosure proceedings while payments are current."""@en .
 
 # --- TIF District ---
 

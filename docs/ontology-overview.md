@@ -218,6 +218,48 @@ Tracking of rental properties and contact information.
 
 ---
 
+### 8. Tax Delinquency
+
+#### **DelinquencyRecord**
+A formal designation that a parcel has been placed on the Hamilton County delinquent land list. A parcel becomes delinquent when an unpaid tax balance survives the Treasurer's end-of-year reconciliation — this is distinct from simply having an unpaid installment. Delinquent parcels are subject to county or third-party collector foreclosure if the balance remains unpaid the following year.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:hasDelinquencyRecord`
+
+**Key Properties:**
+- `cincy:delinquentAmount` (xsd:integer) — total delinquent balance flagged by the Auditor, in USD
+- `cincy:delinquentYear` (xsd:gYear) — the tax year the parcel was placed on the delinquent land list
+- `cincy:isUnderRepaymentContract` (xsd:boolean) — whether the owner has entered a formal delinquent tax repayment contract; protects from active foreclosure while payments are current
+
+---
+
+### 9. Census Geography
+
+#### **CensusTract**
+A U.S. Census Bureau statistical subdivision of a county (~1,200–8,000 people). The standard unit for neighborhood-level analysis.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:inCensusTract`
+
+**Key Properties:**
+- `cincy:tractGEOID` (xsd:string, functional) — 11-digit GEOID: state (2) + county (3) + tract (6). E.g., `39061002700`
+- `cincy:tractNumber` (xsd:string) — 6-digit tract code alone (e.g., `002700`)
+
+---
+
+#### **CensusBlock**
+The smallest Census geographic unit, bounded by streets or visible features. Every parcel maps to exactly one block.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:inCensusBlock`
+- `cincy:CensusTract` via `cincy:tractContainsBlock`
+
+**Key Properties:**
+- `cincy:blockGEOID` (xsd:string, functional) — 15-digit GEOID: state (2) + county (3) + tract (6) + block (4). E.g., `390610027001001`
+- `cincy:blockNumber` (xsd:string) — 4-digit block number within its tract (e.g., `1001`)
+
+---
+
 ## Land Use Vocabulary
 
 See [`cincy-land-use-codes.ttl`](../ontology/cincy-land-use-codes.ttl) for the complete SKOS ConceptScheme.
