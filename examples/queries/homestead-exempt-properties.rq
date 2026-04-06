@@ -1,0 +1,22 @@
+# Find all owner-occupied properties with homestead exemptions
+# Use case: Identify owner-occupied residential properties
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?parcel ?parcelYearState ?ownerOccupied ?homesteadExemption ?landUseCode
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:hasParcelYearState ?parcelYearState .
+
+  ?parcelYearState cincy:taxYear "2025"^^xsd:gYear ;
+                   cincy:ownerOccupied "true"^^xsd:boolean ;
+                   cincy:homesteadExemption "true"^^xsd:boolean ;
+                   cincy:landUseCode ?landUseCode .
+
+  # Bind values for display (not required, but improves readability)
+  BIND ("true"^^xsd:boolean as ?ownerOccupied)
+  BIND ("true"^^xsd:boolean as ?homesteadExemption)
+}
+LIMIT 100

@@ -1,0 +1,19 @@
+# Find all parcels owned by a specific person
+# Use case: Look up all properties owned by an individual
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+
+SELECT ?parcel ?owner ?ownerName ?ownerAddress
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:hasOwnership ?ownership .
+
+  ?ownership cincy:owner ?owner .
+
+  ?owner cincy:hasName ?ownerName ;
+         cincy:hasAddress ?ownerAddress .
+
+  # Filter for a specific owner name (modify as needed)
+  FILTER (REGEX(?ownerName, "^Smith", "i"))
+}
+LIMIT 25

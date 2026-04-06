@@ -1,0 +1,23 @@
+# Retrieve property assessments with valuations
+# Use case: Analyze property values, find high-value properties
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?assessment ?assessmentYear ?landValue ?improvementsValue ?totalValue
+WHERE {
+  ?assessment a cincy:Assessment ;
+              cincy:assessmentYear ?assessmentYear ;
+              cincy:landValue ?landValue ;
+              cincy:improvementsValue ?improvementsValue ;
+              cincy:totalAssessedValue ?totalValue .
+
+  # Optional: Filter for a specific year
+  FILTER (?assessmentYear = "2025"^^xsd:gYear)
+
+  # Optional: Filter for properties above a certain value
+  # Uncomment to find properties valued over $250,000
+  # FILTER (?totalValue > "250000"^^xsd:decimal)
+}
+ORDER BY DESC(?totalValue)
+LIMIT 50
