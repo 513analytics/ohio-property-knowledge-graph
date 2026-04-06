@@ -1,0 +1,124 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# HAMILTON COUNTY SCHOOL DISTRICTS
+# Source: Hamilton County Auditor school district reference data
+# =============================================================================
+
+cincy:SD_20990
+    a cincy:SchoolDistrict ;
+    rdfs:label "CINCINNATI CSD"@en ;
+    cincy:schoolDistrictCode "20990" .
+
+cincy:SD_21400
+    a cincy:SchoolDistrict ;
+    rdfs:label "DEER PARK CSD"@en ;
+    cincy:schoolDistrictCode "21400" .
+
+cincy:SD_21860
+    a cincy:SchoolDistrict ;
+    rdfs:label "FINNEYTOWN LSD"@en ;
+    cincy:schoolDistrictCode "21860" .
+
+cincy:SD_21880
+    a cincy:SchoolDistrict ;
+    rdfs:label "FOREST HILLS LSD"@en ;
+    cincy:schoolDistrictCode "21880" .
+
+cincy:SD_22190
+    a cincy:SchoolDistrict ;
+    rdfs:label "WINTON WOODS CSD"@en ;
+    cincy:schoolDistrictCode "22190" .
+
+cincy:SD_22440
+    a cincy:SchoolDistrict ;
+    rdfs:label "INDIAN HILL EVSD"@en ;
+    cincy:schoolDistrictCode "22440" .
+
+cincy:SD_22930
+    a cincy:SchoolDistrict ;
+    rdfs:label "LOCKLAND CSD"@en ;
+    cincy:schoolDistrictCode "22930" .
+
+cincy:SD_23010
+    a cincy:SchoolDistrict ;
+    rdfs:label "LOVELAND CSD"@en ;
+    cincy:schoolDistrictCode "23010" .
+
+cincy:SD_23090
+    a cincy:SchoolDistrict ;
+    rdfs:label "MADEIRA CSD"@en ;
+    cincy:schoolDistrictCode "23090" .
+
+cincy:SD_23200
+    a cincy:SchoolDistrict ;
+    rdfs:label "MARIEMONT CSD"@en ;
+    cincy:schoolDistrictCode "23200" .
+
+cincy:SD_23430
+    a cincy:SchoolDistrict ;
+    rdfs:label "MILFORD EVSD"@en ;
+    cincy:schoolDistrictCode "23430" .
+
+cincy:SD_23570
+    a cincy:SchoolDistrict ;
+    rdfs:label "MOUNT HEALTHY CSD"@en ;
+    cincy:schoolDistrictCode "23570" .
+
+cincy:SD_23850
+    a cincy:SchoolDistrict ;
+    rdfs:label "NORTH COLLEGE HILL CSD"@en ;
+    cincy:schoolDistrictCode "23850" .
+
+cincy:SD_23980
+    a cincy:SchoolDistrict ;
+    rdfs:label "NORTHWEST LSD (HAMILTON CO.)"@en ;
+    cincy:schoolDistrictCode "23980" .
+
+cincy:SD_24060
+    a cincy:SchoolDistrict ;
+    rdfs:label "NORWOOD CSD"@en ;
+    cincy:schoolDistrictCode "24060" .
+
+cincy:SD_24080
+    a cincy:SchoolDistrict ;
+    rdfs:label "OAK HILLS LSD"@en ;
+    cincy:schoolDistrictCode "24080" .
+
+cincy:SD_24500
+    a cincy:SchoolDistrict ;
+    rdfs:label "PRINCETON CSD"@en ;
+    cincy:schoolDistrictCode "24500" .
+
+cincy:SD_24540
+    a cincy:SchoolDistrict ;
+    rdfs:label "READING CSD"@en ;
+    cincy:schoolDistrictCode "24540" .
+
+cincy:SD_24740
+    a cincy:SchoolDistrict ;
+    rdfs:label "ST. BERNARD-ELMWOOD PLACE CSD"@en ;
+    cincy:schoolDistrictCode "24740" .
+
+cincy:SD_25060
+    a cincy:SchoolDistrict ;
+    rdfs:label "SOUTHWEST LSD (HAMILTON CO.)"@en ;
+    cincy:schoolDistrictCode "25060" .
+
+cincy:SD_25250
+    a cincy:SchoolDistrict ;
+    rdfs:label "SYCAMORE CSD"@en ;
+    cincy:schoolDistrictCode "25250" .
+
+cincy:SD_25310
+    a cincy:SchoolDistrict ;
+    rdfs:label "THREE RIVERS LSD"@en ;
+    cincy:schoolDistrictCode "25310" .
+
+cincy:SD_26100
+    a cincy:SchoolDistrict ;
+    rdfs:label "WYOMING CSD"@en ;
+    cincy:schoolDistrictCode "26100" .

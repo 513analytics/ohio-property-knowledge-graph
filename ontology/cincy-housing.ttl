@@ -119,7 +119,28 @@ cincy:Assessment
     or TIF reduction amounts."""@en .
 
 # ---------------------------------------------------------------------------
-# 5. TAXATION
+# 5. APPRAISAL AREAS & NEIGHBORHOODS
+# ---------------------------------------------------------------------------
+
+cincy:Neighborhood
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Neighborhood"@en ;
+    rdfs:comment """A named geographic area within Hamilton County used as a
+    high-level grouping for appraisal areas. Within the City of Cincinnati,
+    neighborhood boundaries align with recognized community council areas."""@en .
+
+cincy:AppraisalArea
+    a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    rdfs:label "Appraisal Area"@en ;
+    rdfs:comment """A sub-area within a neighborhood used by the Hamilton County
+    Auditor for mass appraisal comparisons. Assessors group comparable parcels
+    within an appraisal area to establish market values on the Ohio 6-year
+    reappraisal cycle. Identified by a 5-digit code."""@en .
+
+# ---------------------------------------------------------------------------
+# 6. TAXATION
 # ---------------------------------------------------------------------------
 
 cincy:TaxDistrict
@@ -129,13 +150,15 @@ cincy:TaxDistrict
     rdfs:comment """A geographic area that determines which levies apply to parcels
     within it. Each parcel is in exactly one tax district. Tax districts are
     composites of overlapping jurisdictions (city, county, school, library,
-    park, etc.)."""@en .
+    park, etc.). Identified by a 3-digit code."""@en .
 
 cincy:SchoolDistrict
     a owl:Class ;
     rdfs:subClassOf geo:Feature ;
     rdfs:label "School District"@en ;
-    rdfs:comment "School districts are tracked separately because they are the largest recipients of property tax revenue."@en .
+    rdfs:comment """School districts are tracked separately because they are the
+    largest recipients of property tax revenue. Identified by a 5-digit IRN
+    (Institution Revenue Number) code."""@en .
 
 cincy:Levy
     a owl:Class ;
@@ -283,6 +306,33 @@ cincy:inSchoolDistrict
     rdfs:domain cincy:Parcel ;
     rdfs:range cincy:SchoolDistrict ;
     rdfs:label "in school district"@en .
+
+cincy:servesSchoolDistrict
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range cincy:SchoolDistrict ;
+    rdfs:label "serves school district"@en ;
+    rdfs:comment "The school district that receives tax revenue from parcels within this tax district."@en .
+
+cincy:inAppraisalArea
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:AppraisalArea ;
+    rdfs:label "in appraisal area"@en ;
+    rdfs:comment "The appraisal area assigned to this parcel by the Hamilton County Auditor for mass appraisal comparisons."@en .
+
+cincy:inNeighborhood
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:AppraisalArea ;
+    rdfs:range cincy:Neighborhood ;
+    rdfs:label "in neighborhood"@en .
+
+cincy:neighborhoodOf
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Neighborhood ;
+    rdfs:range cincy:AppraisalArea ;
+    rdfs:label "neighborhood of"@en ;
+    owl:inverseOf cincy:inNeighborhood .
 
 cincy:inTIFDistrict
     a owl:ObjectProperty ;
@@ -634,4 +684,40 @@ cincy:districtCode
     a owl:DatatypeProperty ;
     rdfs:domain cincy:TaxDistrict ;
     rdfs:range xsd:string ;
-    rdfs:label "district code"@en .
+    rdfs:label "district code"@en ;
+    rdfs:comment "3-digit Hamilton County tax district code."@en .
+
+cincy:schoolDistrictCode
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:SchoolDistrict ;
+    rdfs:range xsd:string ;
+    rdfs:label "school district IRN code"@en ;
+    rdfs:comment "5-digit Ohio IRN (Institution Revenue Number) for the school district."@en .
+
+cincy:appraisalAreaCode
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:AppraisalArea ;
+    rdfs:range xsd:string ;
+    rdfs:label "appraisal area code"@en ;
+    rdfs:comment "5-digit appraisal area code assigned by the Hamilton County Auditor."@en .
+
+cincy:municipalityName
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range xsd:string ;
+    rdfs:label "municipality name"@en ;
+    rdfs:comment "Name of the incorporated city or village within this tax district, if any."@en .
+
+cincy:townshipName
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range xsd:string ;
+    rdfs:label "township name"@en ;
+    rdfs:comment "Name of the township within this tax district, if any."@en .
+
+cincy:fireDivisionName
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TaxDistrict ;
+    rdfs:range xsd:string ;
+    rdfs:label "fire division name"@en ;
+    rdfs:comment "Name of the fire district serving this tax district, if it differs from the municipality/township fire service."@en .

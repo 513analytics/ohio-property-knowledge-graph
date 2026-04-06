@@ -92,7 +92,7 @@ To adapt these queries:
    skos:notation "5xx"
    # Change "5xx" (Residential) to other codes:
    # "1xx" = Agricultural
-   # "2xx" = Extraction
+   # "2xx" = Mineral Lands & Rights
    # "3xx" = Industrial
    # "4xx" = Commercial
    # "5xx" = Residential
