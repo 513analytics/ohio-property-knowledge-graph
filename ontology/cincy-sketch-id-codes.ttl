@@ -1,0 +1,434 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+cincy:SketchIdScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Hamilton County Sketch ID Codes"@en ;
+    skos:prefLabel "Hamilton County Sketch ID Codes"@en ;
+    skos:definition """Sketch identification codes as published by the Hamilton County
+    Auditor. Used in property sketch drawings to identify attached additions (wall
+    codes), detached additions, and story height configurations for parcels. Three
+    categories: Detached Additions (numeric codes 01–199), Attached Additions /
+    Wall Codes (alphanumeric, e.g. GR1, PR2), and Story Heights (e.g. 1s, A4)."""@en .
+
+cincy:SketchIdCode
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Sketch ID Code"@en .
+
+# =============================================================================
+# TOP-LEVEL CATEGORIES
+# =============================================================================
+
+cincy:SK_DetachedAdditions
+    a cincy:SketchIdCode ;
+    skos:inScheme cincy:SketchIdScheme ;
+    skos:topConceptOf cincy:SketchIdScheme ;
+    skos:prefLabel "Detached Additions"@en ;
+    skos:notation "01-199" ;
+    skos:definition "Structures not physically connected to the main building, identified by numeric codes."@en .
+
+cincy:SK_AttachedAdditions
+    a cincy:SketchIdCode ;
+    skos:inScheme cincy:SketchIdScheme ;
+    skos:topConceptOf cincy:SketchIdScheme ;
+    skos:prefLabel "Attached Additions"@en ;
+    skos:notation "Wall Codes" ;
+    skos:definition "Structures physically connected (attached) to the main building, identified by alphanumeric wall codes."@en .
+
+cincy:SK_StoryHeights
+    a cincy:SketchIdCode ;
+    skos:inScheme cincy:SketchIdScheme ;
+    skos:topConceptOf cincy:SketchIdScheme ;
+    skos:prefLabel "Story Heights"@en ;
+    skos:definition "Vertical configuration codes describing the number of stories and attic finish level of a structure."@en .
+
+# =============================================================================
+# DETACHED ADDITIONS (numeric codes 01–199)
+# =============================================================================
+
+cincy:SK_01 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "01" ; skos:prefLabel "Garage - Frame/Vinyl"@en .
+
+cincy:SK_02 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "02" ; skos:prefLabel "Garage - Frame w/Living Quarters"@en .
+
+cincy:SK_05 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "05" ; skos:prefLabel "Garage - Concrete Block"@en .
+
+cincy:SK_06 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "06" ; skos:prefLabel "Garage - Concrete Block w/Living Quarters"@en .
+
+cincy:SK_10 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "10" ; skos:prefLabel "Garage - Brick"@en .
+
+cincy:SK_11 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "11" ; skos:prefLabel "Garage - Brick w/Living Quarters"@en .
+
+cincy:SK_15 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "15" ; skos:prefLabel "Shop - Frame"@en .
+
+cincy:SK_16 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "16" ; skos:prefLabel "Shop - Brick"@en .
+
+cincy:SK_20 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "20" ; skos:prefLabel "Carport - Typical"@en .
+
+cincy:SK_30 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "30" ; skos:prefLabel "Porch - Typical"@en .
+
+cincy:SK_32 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "32" ; skos:prefLabel "Porch - Enclosed"@en .
+
+cincy:SK_36 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "36" ; skos:prefLabel "Canopy - Typical"@en .
+
+cincy:SK_38 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "38" ; skos:prefLabel "Canopy Over Patio"@en .
+
+cincy:SK_50 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "50" ; skos:prefLabel "Deck - Wood"@en .
+
+cincy:SK_60 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "60" ; skos:prefLabel "Utility Shed - Frame"@en .
+
+cincy:SK_61 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "61" ; skos:prefLabel "Utility Shed - Metal"@en .
+
+cincy:SK_65 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "65" ; skos:prefLabel "Shed - Implement Frame"@en .
+
+cincy:SK_70 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "70" ; skos:prefLabel "Patio - Concrete"@en .
+
+cincy:SK_76 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "76" ; skos:prefLabel "Gazebo - Frame"@en .
+
+cincy:SK_80 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "80" ; skos:prefLabel "Pool - Prefab with Liner"@en .
+
+cincy:SK_81 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "81" ; skos:prefLabel "Pool - Reinforced Concrete"@en .
+
+cincy:SK_82 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "82" ; skos:prefLabel "Pool - Fiberglass"@en .
+
+cincy:SK_83 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "83" ; skos:prefLabel "Pool - Concrete Block with Liner"@en .
+
+cincy:SK_85 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "85" ; skos:prefLabel "Pool - Gunite Steel"@en .
+
+cincy:SK_90 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "90" ; skos:prefLabel "Recreation - Tennis Court"@en .
+
+cincy:SK_96 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "96" ; skos:prefLabel "Bath House - Frame/Typical"@en .
+
+cincy:SK_110 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "110" ; skos:prefLabel "Greenhouse - Frame"@en .
+
+cincy:SK_116 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "116" ; skos:prefLabel "Lean-To - Frame"@en .
+
+cincy:SK_120 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "120" ; skos:prefLabel "Stables - Frame"@en .
+
+cincy:SK_121 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "121" ; skos:prefLabel "Stables - Concrete Block"@en .
+
+cincy:SK_122 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "122" ; skos:prefLabel "Stables - Brick"@en .
+
+cincy:SK_125 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "125" ; skos:prefLabel "Barn - Flat"@en .
+
+cincy:SK_130 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "130" ; skos:prefLabel "Barn - Bank"@en .
+
+cincy:SK_136 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "136" ; skos:prefLabel "Barn - Dairy"@en .
+
+cincy:SK_140 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "140" ; skos:prefLabel "Barn - Hog"@en .
+
+cincy:SK_145 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "145" ; skos:prefLabel "Barn - Poultry, Frame"@en .
+
+cincy:SK_146 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "146" ; skos:prefLabel "Barn - Poultry, Concrete"@en .
+
+cincy:SK_150 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "150" ; skos:prefLabel "Pole Barn - Frame, No Walls, Concrete Floor"@en .
+
+cincy:SK_151 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "151" ; skos:prefLabel "Pole Barn - Frame, No Walls, Dirt Floor"@en .
+
+cincy:SK_152 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "152" ; skos:prefLabel "Pole Barn - Frame, One Side Open, Concrete Floor"@en .
+
+cincy:SK_153 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "153" ; skos:prefLabel "Pole Barn - Frame, One Side Open, Dirt Floor"@en .
+
+cincy:SK_154 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "154" ; skos:prefLabel "Pole Barn - Frame, All Walls, Concrete Floor"@en .
+
+cincy:SK_155 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "155" ; skos:prefLabel "Pole Barn - Frame, All Walls, Dirt Floor"@en .
+
+cincy:SK_156 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "156" ; skos:prefLabel "Pole Barn - Metal, No Walls, Concrete Floor"@en .
+
+cincy:SK_157 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "157" ; skos:prefLabel "Pole Barn - Metal, No Walls, Dirt Floor"@en .
+
+cincy:SK_158 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "158" ; skos:prefLabel "Pole Barn - Metal, One Side Open, Concrete Floor"@en .
+
+cincy:SK_159 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "159" ; skos:prefLabel "Pole Barn - Metal, One Side Open, Dirt Floor"@en .
+
+cincy:SK_160 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "160" ; skos:prefLabel "Pole Barn - Metal, All Walls, Concrete Floor"@en .
+
+cincy:SK_161 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "161" ; skos:prefLabel "Pole Barn - Metal, All Walls, Dirt Floor"@en .
+
+cincy:SK_162 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "162" ; skos:prefLabel "Pole Barn - Shelter, Open"@en .
+
+cincy:SK_165 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "165" ; skos:prefLabel "Quonset - Frame or Equal"@en .
+
+cincy:SK_170 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "170" ; skos:prefLabel "Milk House - Frame or Equal"@en .
+
+cincy:SK_190 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "190" ; skos:prefLabel "Miscellaneous - Cabins"@en .
+
+cincy:SK_197 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "197" ; skos:prefLabel "Miscellaneous - TIFs"@en .
+
+cincy:SK_199 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_DetachedAdditions ;
+    skos:notation "199" ; skos:prefLabel "Miscellaneous"@en .
+
+# =============================================================================
+# ATTACHED ADDITIONS / WALL CODES
+# =============================================================================
+
+cincy:SK_BZ1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "BZ1" ; skos:prefLabel "Breezeway - Open"@en .
+
+cincy:SK_BZ2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "BZ2" ; skos:prefLabel "Breezeway - Enclosed"@en .
+
+cincy:SK_BL1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "BL1" ; skos:prefLabel "Balcony - Open"@en .
+
+cincy:SK_BA3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "BA3" ; skos:prefLabel "Basement - Extension"@en .
+
+cincy:SK_CY1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "CY1" ; skos:prefLabel "Canopy - Frame or Equal"@en .
+
+cincy:SK_CY3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "CY3" ; skos:prefLabel "Canopy Over Patio"@en .
+
+cincy:SK_CY4 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "CY4" ; skos:prefLabel "Canopy of Stoop"@en .
+
+cincy:SK_CP1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "CP1" ; skos:prefLabel "Carport - Typical"@en .
+
+cincy:SK_GR1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GR1" ; skos:prefLabel "Garage - Frame/Vinyl"@en .
+
+cincy:SK_GR2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GR2" ; skos:prefLabel "Garage - Brick"@en .
+
+cincy:SK_GR3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GR3" ; skos:prefLabel "Garage - Stone"@en .
+
+cincy:SK_GR4 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GR4" ; skos:prefLabel "Garage - Basement"@en .
+
+cincy:SK_GR5 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GR5" ; skos:prefLabel "Garage - Integral"@en .
+
+cincy:SK_GZ1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GZ1" ; skos:prefLabel "Gazebo - Frame"@en .
+
+cincy:SK_GH1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "GH1" ; skos:prefLabel "Greenhouse - Typical"@en .
+
+cincy:SK_WD1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "WD1" ; skos:prefLabel "Wood Deck - Typical"@en .
+
+cincy:SK_VD1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "VD1" ; skos:prefLabel "Vinyl Deck - Typical"@en .
+
+cincy:SK_PR1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PR1" ; skos:prefLabel "Porch - Frame or Masonry, Open"@en .
+
+cincy:SK_PR2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PR2" ; skos:prefLabel "Porch - Frame or Masonry, Enclosed"@en .
+
+cincy:SK_PR3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PR3" ; skos:prefLabel "Porch - Masonry, Open with Knee Walls"@en .
+
+cincy:SK_PR4 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PR4" ; skos:prefLabel "Porch - Masonry, Enclosed with Knee Walls"@en .
+
+cincy:SK_PR5 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PR5" ; skos:prefLabel "Porch - Portico"@en .
+
+cincy:SK_SH1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "SH1" ; skos:prefLabel "Shed - Frame"@en .
+
+cincy:SK_SH2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "SH2" ; skos:prefLabel "Shed - Brick"@en .
+
+cincy:SK_SP1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "SP1" ; skos:prefLabel "Pool - Enclosed"@en .
+
+cincy:SK_ST1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "ST1" ; skos:prefLabel "Stoop - Masonry"@en .
+
+cincy:SK_PT1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PT1" ; skos:prefLabel "Patio - Concrete"@en .
+
+cincy:SK_PT2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PT2" ; skos:prefLabel "Patio - Brick"@en .
+
+cincy:SK_PT3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_AttachedAdditions ;
+    skos:notation "PT3" ; skos:prefLabel "Patio - Stone"@en .
+
+# =============================================================================
+# STORY HEIGHTS
+# =============================================================================
+
+cincy:SK_1s a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "1s" ; skos:prefLabel "One Story"@en .
+
+cincy:SK_2s a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "2s" ; skos:prefLabel "Two Story"@en .
+
+cincy:SK_025 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation ".25" ; skos:prefLabel "Quarter Story"@en .
+
+cincy:SK_050 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation ".50" ; skos:prefLabel "Half Story"@en .
+
+cincy:SK_075 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation ".75" ; skos:prefLabel "Three-Quarter Story"@en .
+
+cincy:SK_A4 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "A4" ; skos:prefLabel "Attic - Full Finished"@en .
+
+cincy:SK_A3 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "A3" ; skos:prefLabel "Attic - Three-Quarter Finished"@en .
+
+cincy:SK_A2 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "A2" ; skos:prefLabel "Attic - Half Finished"@en .
+
+cincy:SK_A1 a cincy:SketchIdCode ; skos:inScheme cincy:SketchIdScheme ;
+    skos:broader cincy:SK_StoryHeights ;
+    skos:notation "A1" ; skos:prefLabel "Attic - Unfinished"@en .

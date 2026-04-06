@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-04-05
+
+### Added
+- Hamilton County Sketch ID Codes vocabulary (`ontology/cincy-sketch-id-codes.ttl`)
+  - SKOS ConceptScheme (`cincy:SketchIdScheme`) with 3 top-level categories
+  - 46 detached addition codes (numeric 01–199): garages, carports, porches, sheds, pools, barns, pole barns, and miscellaneous structures
+  - 28 attached addition / wall codes (alphanumeric, e.g. GR1, PR2): breezeways, balconies, garages, porches, decks, patios, pools
+  - 9 story height codes (e.g. 1s, 2s, A1–A4): full/half/quarter stories and attic finish levels
+- Hamilton County Deed Type Codes vocabulary (`ontology/cincy-deed-types.ttl`)
+  - SKOS ConceptScheme (`cincy:DeedTypeScheme`) with 7 top-level categories
+  - 44 deed type concepts covering warranty, quit claim, fiduciary, sheriff/court, survivorship, government, and special-purpose instruments
+  - EX/Exempt variants documented with reference to ORC 319.54 conveyance fee exemptions
+- `cincy:sketchIdCode` object property on `cincy:ParcelYearState` linking to `cincy:SketchIdCode`
+- Updated `cincy:deedType` from DatatypeProperty (xsd:string) to ObjectProperty referencing `cincy:DeedType`
+
 ## [0.1.0] - 2026-04-05
 
 ### Added
