@@ -1,0 +1,324 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+cincy:DeedTypeScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Hamilton County Deed Type Codes"@en ;
+    skos:prefLabel "Hamilton County Deed Type Codes"@en ;
+    skos:definition """Deed type codes as published by the Hamilton County Auditor,
+    used to classify recorded transfer instruments. Codes ending in 'E' or 'EX'
+    denote transfers exempt from the Ohio conveyance fee (ORC 319.54). Deed types
+    are recorded on TransferEvent records and determine whether a conveyance fee
+    applies to the sale."""@en .
+
+cincy:DeedType
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Deed Type"@en .
+
+# =============================================================================
+# TOP-LEVEL CATEGORIES
+# =============================================================================
+
+cincy:DT_WarrantyDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Warranty Deeds"@en ;
+    skos:definition "Deeds in which the grantor warrants title against all claims."@en .
+
+cincy:DT_QuitClaimDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Quit Claim Deeds"@en ;
+    skos:definition "Deeds conveying only the grantor's interest with no warranty of title."@en .
+
+cincy:DT_FiduciaryDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Fiduciary Deeds"@en ;
+    skos:definition "Deeds executed by fiduciaries acting in a representative capacity: executors, trustees, guardians."@en .
+
+cincy:DT_SheriffCourtDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Sheriff and Court Deeds"@en ;
+    skos:definition "Deeds resulting from judicial or quasi-judicial proceedings: sheriff sales, court decrees, probate."@en .
+
+cincy:DT_SurvivorshipDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Survivorship Deeds"@en ;
+    skos:definition "Deeds conveying property to two or more grantees with right of survivorship."@en .
+
+cincy:DT_GovernmentDeeds
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Government and Administrative Deeds"@en ;
+    skos:definition "Deeds issued by government authorities or resulting from governmental action."@en .
+
+cincy:DT_SpecialPurpose
+    a cincy:DeedType ;
+    skos:inScheme cincy:DeedTypeScheme ;
+    skos:topConceptOf cincy:DeedTypeScheme ;
+    skos:prefLabel "Special Purpose Instruments"@en ;
+    skos:definition "Other recorded instruments that affect title or conveyance: affidavits, boundary surveys, subdivision plats, condominiums, manufactured home conveyances."@en .
+
+# =============================================================================
+# WARRANTY DEEDS
+# =============================================================================
+
+cincy:DT_WD a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_WarrantyDeeds ;
+    skos:notation "WD" ; skos:prefLabel "Warranty Deed"@en ;
+    skos:definition "General warranty deed. Conveyance fee applies."@en .
+
+cincy:DT_WE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_WarrantyDeeds ;
+    skos:notation "WE" ; skos:prefLabel "Warranty Deed - Exempt"@en ;
+    skos:definition "Warranty deed exempt from Ohio conveyance fee (ORC 319.54)."@en .
+
+cincy:DT_LW a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_WarrantyDeeds ;
+    skos:notation "LW" ; skos:prefLabel "Limited Warranty Deed"@en ;
+    skos:definition "Deed with warranty limited to claims arising during the grantor's ownership."@en .
+
+cincy:DT_LE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_WarrantyDeeds ;
+    skos:notation "LE" ; skos:prefLabel "Limited Warranty Deed - Exempt"@en ;
+    skos:definition "Limited warranty deed exempt from Ohio conveyance fee."@en .
+
+# =============================================================================
+# QUIT CLAIM DEEDS
+# =============================================================================
+
+cincy:DT_QU a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_QuitClaimDeeds ;
+    skos:notation "QU" ; skos:prefLabel "Quit Claim Deed"@en ;
+    skos:definition "Deed conveying only the grantor's current interest with no title warranty."@en .
+
+cincy:DT_QE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_QuitClaimDeeds ;
+    skos:notation "QE" ; skos:prefLabel "Quit Claim Deed - Exempt"@en ;
+    skos:definition "Quit claim deed exempt from Ohio conveyance fee."@en .
+
+# =============================================================================
+# FIDUCIARY DEEDS
+# =============================================================================
+
+cincy:DT_EX a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "EX" ; skos:prefLabel "Executor's Deed"@en ;
+    skos:definition "Deed executed by the executor of an estate."@en .
+
+cincy:DT_EE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "EE" ; skos:prefLabel "Executor's Deed - Exempt"@en ;
+    skos:definition "Executor's deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_FD a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "FD" ; skos:prefLabel "Fiduciary Deed"@en ;
+    skos:definition "Deed executed by a fiduciary (administrator, guardian, or trustee) in a representative capacity."@en .
+
+cincy:DT_FE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "FE" ; skos:prefLabel "Fiduciary Deed - Exempt"@en ;
+    skos:definition "Fiduciary deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_TR a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "TR" ; skos:prefLabel "Trustee's Deed"@en ;
+    skos:definition "Deed executed by a trustee conveying trust property."@en .
+
+cincy:DT_TE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "TE" ; skos:prefLabel "Trustee's Deed - Exempt"@en ;
+    skos:definition "Trustee's deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_GR a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "GR" ; skos:prefLabel "Guardian Deed"@en ;
+    skos:definition "Deed executed by a court-appointed guardian on behalf of a ward."@en .
+
+cincy:DT_AD a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "AD" ; skos:prefLabel "Administrator's Deed"@en ;
+    skos:definition "Deed executed by an estate administrator (intestate estate)."@en .
+
+cincy:DT_AD_CONV a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "AD-CONV" ; skos:prefLabel "Administrator's Deed - Conveyance"@en ;
+    skos:definition "Administrator's deed with conveyance fee applied."@en .
+
+cincy:DT_AD_EX a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "AD-EX" ; skos:prefLabel "Administrator's Deed - Exempt"@en ;
+    skos:definition "Administrator's deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_CO a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "CO" ; skos:prefLabel "Corporation Deed"@en ;
+    skos:definition "Deed executed by a corporate grantor."@en .
+
+cincy:DT_CE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "CE" ; skos:prefLabel "Corporation Deed - Exempt"@en ;
+    skos:definition "Corporation deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_TX a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_FiduciaryDeeds ;
+    skos:notation "TX" ; skos:prefLabel "Transfer on Death - Exempt"@en ;
+    skos:definition "Transfer on Death (TOD) instrument (Ohio Revised Code Chapter 5302) exempt from conveyance fee."@en .
+
+# =============================================================================
+# SHERIFF AND COURT DEEDS
+# =============================================================================
+
+cincy:DT_SH a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "SH" ; skos:prefLabel "Sheriff's Deed"@en ;
+    skos:definition "Deed issued by the county sheriff following a court-ordered foreclosure sale."@en .
+
+cincy:DT_SF a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "SF" ; skos:prefLabel "Sheriff's Deed - Exempt"@en ;
+    skos:definition "Sheriff's deed exempt from Ohio conveyance fee."@en .
+
+cincy:DT_CP a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "CP" ; skos:prefLabel "Court of Common Pleas"@en ;
+    skos:definition "Transfer ordered or confirmed by the Hamilton County Court of Common Pleas."@en .
+
+cincy:DT_CP_EX a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "CP-EX" ; skos:prefLabel "Court of Common Pleas - Exempt"@en ;
+    skos:definition "Court of Common Pleas transfer exempt from Ohio conveyance fee."@en .
+
+cincy:DT_DC a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "DC" ; skos:prefLabel "Decree"@en ;
+    skos:definition "Transfer pursuant to a court decree (e.g., divorce decree)."@en .
+
+cincy:DT_PC a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "PC" ; skos:prefLabel "Probate Court"@en ;
+    skos:definition "Transfer ordered or confirmed by the Hamilton County Probate Court."@en .
+
+cincy:DT_ME a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SheriffCourtDeeds ;
+    skos:notation "ME" ; skos:prefLabel "Marshal's Deed - Exempt"@en ;
+    skos:definition "Deed issued by a U.S. Marshal or court officer following federal judicial sale."@en .
+
+# =============================================================================
+# SURVIVORSHIP DEEDS
+# =============================================================================
+
+cincy:DT_SV a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SurvivorshipDeeds ;
+    skos:notation "SV" ; skos:prefLabel "Survivorship Deed"@en ;
+    skos:definition "Deed conveying property to multiple grantees with right of survivorship (joint tenancy)."@en .
+
+cincy:DT_SE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SurvivorshipDeeds ;
+    skos:notation "SE" ; skos:prefLabel "Survivorship Deed - Exempt"@en ;
+    skos:definition "Survivorship deed exempt from Ohio conveyance fee."@en .
+
+# =============================================================================
+# GOVERNMENT AND ADMINISTRATIVE DEEDS
+# =============================================================================
+
+cincy:DT_AU a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_GovernmentDeeds ;
+    skos:notation "AU" ; skos:prefLabel "Auditor's Deed"@en ;
+    skos:definition "Deed issued by the county auditor, typically for delinquent tax forfeited lands."@en .
+
+cincy:DT_GE a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_GovernmentDeeds ;
+    skos:notation "GE" ; skos:prefLabel "Governor's Deed - Exempt"@en ;
+    skos:definition "Deed issued by the Governor of Ohio for state-owned lands."@en .
+
+cincy:DT_DO a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_GovernmentDeeds ;
+    skos:notation "DO" ; skos:prefLabel "Deed of Ordinance"@en ;
+    skos:definition "Transfer effectuated by municipal ordinance (e.g., urban renewal, land banking)."@en .
+
+cincy:DT_AN a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_GovernmentDeeds ;
+    skos:notation "AN" ; skos:prefLabel "Annexation"@en ;
+    skos:definition "Instrument recording the annexation of territory to a municipality."@en .
+
+cincy:DT_VS a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_GovernmentDeeds ;
+    skos:notation "VS" ; skos:prefLabel "Vacation of Street"@en ;
+    skos:definition "Instrument vacating a public street or alley and returning the right-of-way to abutting property owners."@en .
+
+# =============================================================================
+# SPECIAL PURPOSE INSTRUMENTS
+# =============================================================================
+
+cincy:DT_AC a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "AC" ; skos:prefLabel "Acceptance"@en ;
+    skos:definition "Instrument of acceptance, typically for dedicated public improvements or easements."@en .
+
+cincy:DT_AF a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "AF" ; skos:prefLabel "Affidavit"@en ;
+    skos:definition "Recorded affidavit affecting title (e.g., affidavit of surviving spouse, affidavit of facts relating to title)."@en .
+
+cincy:DT_BS a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "BS" ; skos:prefLabel "Boundary Survey"@en ;
+    skos:definition "Recorded instrument establishing or correcting parcel boundary lines."@en .
+
+cincy:DT_CM a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "CM" ; skos:prefLabel "Conveyance of Manufactured Home"@en ;
+    skos:definition "Instrument conveying a manufactured home that has been converted to real property."@en .
+
+cincy:DT_EM a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "EM" ; skos:prefLabel "Exempt Manufactured Home"@en ;
+    skos:definition "Manufactured home conveyance exempt from Ohio conveyance fee."@en .
+
+cincy:DT_CT_EX a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "CT-EX" ; skos:prefLabel "Certificate of Title - Exempt"@en ;
+    skos:definition "Certificate of title transfer exempt from Ohio conveyance fee."@en .
+
+cincy:DT_NC a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "NC" ; skos:prefLabel "New Condominium"@en ;
+    skos:definition "Instrument recording the creation of a new condominium regime under ORC Chapter 5311."@en .
+
+cincy:DT_DE_CONDO a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "DE-CONDO" ; skos:prefLabel "De-Condominium"@en ;
+    skos:definition "Instrument terminating a condominium regime and reconverting units to conventional real property."@en .
+
+cincy:DT_NS a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "NS" ; skos:prefLabel "New Subdivision"@en ;
+    skos:definition "Recorded plat creating a new subdivision of land."@en .
+
+cincy:DT_DA a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "DA" ; skos:prefLabel "Decrease Amended Conveyance"@en ;
+    skos:definition "Amendment to a conveyance instrument that decreases the stated consideration or parcel area."@en .
+
+cincy:DT_IA a cincy:DeedType ; skos:inScheme cincy:DeedTypeScheme ;
+    skos:broader cincy:DT_SpecialPurpose ;
+    skos:notation "IA" ; skos:prefLabel "Increase Amended Conveyance"@en ;
+    skos:definition "Amendment to a conveyance instrument that increases the stated consideration or parcel area."@en .

@@ -643,10 +643,18 @@ cincy:instrumentNumber
     rdfs:label "instrument number"@en .
 
 cincy:deedType
-    a owl:DatatypeProperty ;
+    a owl:ObjectProperty ;
     rdfs:domain cincy:TransferEvent ;
-    rdfs:range xsd:string ;
-    rdfs:label "deed type"@en .
+    rdfs:range cincy:DeedType ;
+    rdfs:label "deed type"@en ;
+    rdfs:comment "Links a transfer event to its deed type classification (see cincy-deed-types.ttl)."@en .
+
+cincy:sketchIdCode
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:ParcelYearState ;
+    rdfs:range cincy:SketchIdCode ;
+    rdfs:label "sketch ID code"@en ;
+    rdfs:comment "Links a parcel year state to a sketch ID code describing an attached addition, detached addition, or story height (see cincy-sketch-id-codes.ttl)."@en .
 
 # --- Rental registration ---
 
