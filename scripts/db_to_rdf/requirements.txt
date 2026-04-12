@@ -1,0 +1,9 @@
+# Dependencies for db_to_rdf.py
+#
+# psycopg 3 is used for its modern API and native support for server-side
+# (named) cursors, which stream rows in fixed-size batches and keep
+# client-side memory flat regardless of result-set size.
+psycopg[binary]>=3.1,<4
+
+# PyYAML parses the mapping config file.
+PyYAML>=6.0

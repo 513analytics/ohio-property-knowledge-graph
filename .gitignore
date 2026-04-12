@@ -24,6 +24,10 @@ __pycache__/
 .env
 venv/
 env/
+.venv/
+
+# db_to_rdf generated output
+/output/
 
 # Node.js
 node_modules/
