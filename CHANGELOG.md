@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- `scripts/db_to_rdf/` — streaming Postgres → Turtle converter written in Python.
+  - `db_to_rdf.py` — main script. Uses a Postgres server-side cursor to stream
+    rows in configurable batches and writes triples directly to the output
+    stream, keeping client-side memory flat regardless of result-set size.
+  - `mapping.example.yaml` — example mapping showing how to convert parcels,
+    owners, postal addresses, and the relationships between them into
+    `cincy:` ontology triples using `SELECT DISTINCT` per entity class.
+  - `requirements.txt` — pinned `psycopg[binary]` and `PyYAML` dependencies.
+  - `README.md` — usage, mapping-file format reference, and tuning notes.
+
 ## [0.2.0] - 2026-04-05
 
 ### Added

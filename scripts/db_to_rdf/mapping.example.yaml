@@ -1,0 +1,251 @@
+# -----------------------------------------------------------------------------
+# Example db_to_rdf mapping for the cincy: ontology.
+#
+# Run it with:
+#
+#     export DATABASE_URL='postgresql://user:pass@host:5432/auditor'
+#     python scripts/db_to_rdf/db_to_rdf.py \
+#         --config scripts/db_to_rdf/mapping.example.yaml
+#
+# Each entry in `mappings` runs a single SQL query and emits a fixed set of
+# triples per row. The key pattern for bulk ingestion is:
+#
+#   1. Write one mapping per entity class (parcels, owners, addresses).
+#      Use SELECT DISTINCT so each subject IRI is emitted at most once.
+#   2. Write one mapping per relationship (parcel->owner, owner->mail addr).
+#      Relationship mappings are cheap — just a subject template, a
+#      predicate, and an object template.
+#
+# This layout avoids re-emitting entity metadata (name, street, etc.) for
+# every (parcel, owner) pair, which is critical when the Postgres source
+# has 300k parcels and 700k addresses.
+# -----------------------------------------------------------------------------
+
+database:
+  # libpq connection string. ${ENV_VAR} references are expanded. Standard
+  # PG* environment variables also work if you omit the dsn.
+  dsn: "${DATABASE_URL}"
+
+output:
+  path: output/cincy-triples.ttl
+  # Rows fetched per server-side cursor round-trip. 10k balances round-trip
+  # overhead with batch memory usage. Drop it for very wide rows.
+  batch_size: 10000
+
+# Prefixes declared at the top of the output TTL file. rdf: and xsd: are
+# always added automatically.
+prefixes:
+  cincy:  http://kg.513analytics.com/ont/cincy#
+  schema: https://schema.org/
+  geo:    http://www.opengis.net/ont/geosparql#
+  rdfs:   http://www.w3.org/2000/01/rdf-schema#
+
+mappings:
+
+  # ===========================================================================
+  # 1. PARCELS  —  one cincy:Parcel per row.
+  #
+  # ~300,000 rows. The parcel_number column is the composite auditor key and
+  # becomes the last path segment of the IRI.
+  # ===========================================================================
+  - name: parcels
+    query: |
+      SELECT
+          parcel_number,
+          book,
+          page,
+          parcel_id_on_page,
+          mltown
+      FROM auditor.parcel
+    subject:
+      template: "cincy:parcel/{parcel_number}"
+      type: cincy:Parcel
+      skip_if_null: [parcel_number]
+    properties:
+      - predicate: cincy:parcelNumber
+        literal: { column: parcel_number, datatype: xsd:string }
+      - predicate: cincy:book
+        literal: { column: book, datatype: xsd:string }
+      - predicate: cincy:page
+        literal: { column: page, datatype: xsd:string }
+      - predicate: cincy:parcelIdOnPage
+        literal: { column: parcel_id_on_page, datatype: xsd:string }
+      - predicate: cincy:mltown
+        literal: { column: mltown, datatype: xsd:string }
+
+  # ===========================================================================
+  # 2. OWNERS  —  one cincy:Party per unique owner.
+  #
+  # owner_hash should be a stable SHA-1 of the canonical owner name plus
+  # mailing address, ideally computed in SQL so it's shared with the
+  # parcel_ownership mapping below. The `type_column`/`type_map` pair lets
+  # us assert cincy:Person / cincy:LLC / etc. from a single row.
+  # ===========================================================================
+  - name: owners
+    query: |
+      SELECT DISTINCT
+          encode(
+              digest(
+                  lower(trim(owner_name))
+                  || '|' || coalesce(lower(trim(mail_street)), '')
+                  || '|' || coalesce(lower(trim(mail_city)), '')
+                  || '|' || coalesce(lower(trim(mail_state)), '')
+                  || '|' || coalesce(lower(trim(mail_zip)), ''),
+                  'sha1'
+              ),
+              'hex'
+          )                                          AS owner_hash,
+          owner_name,
+          owner_type
+      FROM auditor.parcel
+      WHERE owner_name IS NOT NULL
+    subject:
+      template: "cincy:party/{owner_hash}"
+      type: cincy:Party            # Fallback class if type_column has no match.
+      type_column: owner_type
+      type_map:
+        P:         cincy:Person
+        PERSON:    cincy:Person
+        LLC:       cincy:LLC
+        TRUST:     cincy:Trust
+        GOV:       cincy:GovernmentEntity
+        NONPROFIT: cincy:NonProfit
+        ORG:       cincy:Organization
+      skip_if_null: [owner_hash]
+    properties:
+      - predicate: schema:name
+        literal: { column: owner_name, datatype: xsd:string }
+
+  # ===========================================================================
+  # 3. POSTAL ADDRESSES  —  one schema:PostalAddress per unique address.
+  #
+  # Covers both mailing addresses and site addresses. ~700,000 distinct
+  # rows after DISTINCT. address_hash lets parties and parcels reference
+  # the same address IRI.
+  # ===========================================================================
+  - name: addresses
+    query: |
+      SELECT DISTINCT
+          encode(
+              digest(
+                  coalesce(lower(trim(street)), '')
+                  || '|' || coalesce(lower(trim(unit)), '')
+                  || '|' || coalesce(lower(trim(city)), '')
+                  || '|' || coalesce(lower(trim(state)), '')
+                  || '|' || coalesce(zip5, ''),
+                  'sha1'
+              ),
+              'hex'
+          )                                          AS address_hash,
+          street,
+          unit,
+          city,
+          state,
+          zip5
+      FROM auditor.address
+      WHERE street IS NOT NULL
+    subject:
+      template: "cincy:address/{address_hash}"
+      type: schema:PostalAddress
+      skip_if_null: [address_hash]
+    properties:
+      - predicate: schema:streetAddress
+        literal: { column: street, datatype: xsd:string }
+      - predicate: cincy:unit
+        literal: { column: unit, datatype: xsd:string }
+      - predicate: schema:addressLocality
+        literal: { column: city, datatype: xsd:string }
+      - predicate: schema:addressRegion
+        literal: { column: state, datatype: xsd:string }
+      - predicate: schema:postalCode
+        literal: { column: zip5, datatype: xsd:string }
+
+  # ===========================================================================
+  # 4. PARCEL → OWNER  —  cincy:ownedBy triples.
+  #
+  # One row per (parcel, owner) link. Null safety: skip_if_null ensures we
+  # don't emit dangling relationships.
+  # ===========================================================================
+  - name: parcel_ownership
+    query: |
+      SELECT
+          parcel_number,
+          owner_hash
+      FROM auditor.parcel_owner_link
+    subject:
+      template: "cincy:parcel/{parcel_number}"
+      skip_if_null: [parcel_number, owner_hash]
+    properties:
+      - predicate: cincy:ownedBy
+        iri: { template: "cincy:party/{owner_hash}" }
+
+  # ===========================================================================
+  # 5. OWNER → MAILING ADDRESS  —  cincy:mailingAddress triples.
+  # ===========================================================================
+  - name: owner_mailing_address
+    query: |
+      SELECT
+          owner_hash,
+          mailing_address_hash
+      FROM auditor.owner_mailing_address
+    subject:
+      template: "cincy:party/{owner_hash}"
+      skip_if_null: [owner_hash, mailing_address_hash]
+    properties:
+      - predicate: cincy:mailingAddress
+        iri: { template: "cincy:address/{mailing_address_hash}" }
+
+  # ===========================================================================
+  # 6. PARCEL → SITE ADDRESS  —  schema:address triples.
+  # ===========================================================================
+  - name: parcel_site_address
+    query: |
+      SELECT
+          parcel_number,
+          site_address_hash
+      FROM auditor.parcel_site_address
+    subject:
+      template: "cincy:parcel/{parcel_number}"
+      skip_if_null: [parcel_number, site_address_hash]
+    properties:
+      - predicate: schema:address
+        iri: { template: "cincy:address/{site_address_hash}" }
+
+  # ===========================================================================
+  # 7. EXAMPLE  —  ParcelYearState with dynamic type and derived IRI fragment.
+  #
+  # Shows the `derived` feature: if your source schema doesn't already have
+  # a stable hash column, the script can compute one in Python using SHA-1
+  # over a list of columns. Prefer computing it in SQL when possible (it's
+  # cheaper and stays consistent across different consumers of the data).
+  # ===========================================================================
+  - name: parcel_year_state
+    query: |
+      SELECT
+          parcel_number,
+          tax_year,
+          is_owner_occupied,
+          has_homestead,
+          land_use_code
+      FROM auditor.parcel_year
+    subject:
+      template: "cincy:parcelYearState/{parcel_number}-{tax_year}"
+      type: cincy:ParcelYearState
+      skip_if_null: [parcel_number, tax_year]
+    properties:
+      - predicate: cincy:taxYear
+        literal: { column: tax_year, datatype: xsd:gYear }
+      - predicate: cincy:isOwnerOccupied
+        literal: { column: is_owner_occupied, datatype: xsd:boolean }
+      - predicate: cincy:hasHomesteadExemption
+        literal: { column: has_homestead, datatype: xsd:boolean }
+      - predicate: cincy:hasLandUse
+        iri: { template: "cincy:landUse/{land_use_code}" }
+    # Example derived column (not used by the templates above; kept as a
+    # reference for how to add one). Uncomment to hash additional fields
+    # into a stable IRI fragment client-side.
+    #
+    # derived:
+    #   owner_hash:
+    #     type: sha1
+    #     columns: [owner_name, mail_street, mail_city, mail_zip]
