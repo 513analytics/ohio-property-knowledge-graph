@@ -16,10 +16,21 @@ Built for bulk exports of **millions of triples** with constant memory:
 
 ## Install
 
+**With `uv` (recommended):**
+
 ```bash
+cd scripts/db_to_rdf
+uv sync           # Creates .venv with pinned dependencies
+source .venv/bin/activate
+```
+
+**With pip:**
+
+```bash
+cd scripts/db_to_rdf
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r scripts/db_to_rdf/requirements.txt
+pip install -r requirements.txt
 ```
 
 Dependencies:
@@ -29,12 +40,20 @@ Dependencies:
 
 ## Run
 
+After activating the virtual environment:
+
 ```bash
 export DATABASE_URL='postgresql://user:pass@host:5432/auditor'
 
+# From the repo root:
 python scripts/db_to_rdf/db_to_rdf.py \
     --config scripts/db_to_rdf/mapping.example.yaml \
     --output output/cincy-triples.ttl
+
+# Or from the scripts/db_to_rdf/ directory:
+python db_to_rdf.py \
+    --config mapping.example.yaml \
+    --output ../../output/cincy-triples.ttl
 ```
 
 Standard `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`

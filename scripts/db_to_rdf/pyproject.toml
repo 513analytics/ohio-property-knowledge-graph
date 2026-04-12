@@ -1,0 +1,16 @@
+[project]
+name = "db-to-rdf"
+version = "0.1.0"
+description = "Stream Postgres rows into Turtle RDF with a declarative YAML mapping."
+requires-python = ">=3.9"
+dependencies = [
+    "psycopg[binary]>=3.1,<4",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+db-to-rdf = "db_to_rdf:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

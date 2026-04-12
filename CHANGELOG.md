@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
   - `mapping.example.yaml` — example mapping showing how to convert parcels,
     owners, postal addresses, and the relationships between them into
     `cincy:` ontology triples using `SELECT DISTINCT` per entity class.
+  - `pyproject.toml` — project metadata and dependencies. Install with
+    `uv sync` (recommended) or `pip install -r requirements.txt`.
   - `requirements.txt` — pinned `psycopg[binary]` and `PyYAML` dependencies.
   - `README.md` — usage, mapping-file format reference, and tuning notes.
 
