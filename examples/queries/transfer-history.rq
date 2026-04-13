@@ -1,0 +1,52 @@
+# Transfer History for a Parcel
+# Returns all recorded transfers for a given parcel, including sale price,
+# deed type, transfer classification, parties, and conveyance fee details.
+#
+# Use case: Investigating the ownership chain and transaction history of a
+# property, identifying arm's length sales vs. non-market transfers.
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?transferDate ?salePrice ?deedTypeLabel ?transferTypeLabel
+       ?grantor ?grantee ?isArmsLength ?conveyanceFee ?isExempt
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:parcelNumber ?parcelNum ;
+          cincy:hasTransfer ?transfer .
+
+  ?transfer a cincy:TransferEvent ;
+            cincy:transferDate ?transferDate .
+
+  OPTIONAL { ?transfer cincy:salePrice ?salePrice . }
+
+  OPTIONAL {
+    ?transfer cincy:deedType ?deedType .
+    ?deedType skos:prefLabel ?deedTypeLabel .
+  }
+
+  OPTIONAL {
+    ?transfer cincy:transferType ?transferType .
+    ?transferType skos:prefLabel ?transferTypeLabel .
+  }
+
+  OPTIONAL {
+    ?transfer cincy:fromParty ?seller .
+    ?seller rdfs:label ?grantor .
+  }
+
+  OPTIONAL {
+    ?transfer cincy:toParty ?buyer .
+    ?buyer rdfs:label ?grantee .
+  }
+
+  OPTIONAL { ?transfer cincy:isArmsLength ?isArmsLength . }
+  OPTIONAL { ?transfer cincy:conveyanceFee ?conveyanceFee . }
+  OPTIONAL { ?transfer cincy:isConveyanceFeeExempt ?isExempt . }
+
+  # Change this filter to the parcel number of interest
+  FILTER (?parcelNum = "0012345")
+}
+ORDER BY ?transferDate

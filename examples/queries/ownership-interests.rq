@@ -1,0 +1,44 @@
+# Ownership Interest Details
+# Returns how title is held for parcels, including ownership type
+# (survivorship tenancy, tenancy in common, life estate, etc.),
+# fractional interests, and remainder holders for life estates.
+#
+# Use case: Analyzing co-ownership patterns, identifying survivorship
+# tenancies, finding life estate arrangements.
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?parcelNum ?holderName ?ownershipTypeLabel ?interestFraction
+       ?startDate ?endDate ?remainderHolderName
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:parcelNumber ?parcelNum ;
+          cincy:hasOwnershipInterest ?interest .
+
+  ?interest a cincy:OwnershipInterest ;
+            cincy:interestHolder ?holder .
+
+  ?holder rdfs:label ?holderName .
+
+  OPTIONAL {
+    ?interest cincy:ownershipType ?ownershipType .
+    ?ownershipType skos:prefLabel ?ownershipTypeLabel .
+  }
+
+  OPTIONAL { ?interest cincy:interestFraction ?interestFraction . }
+  OPTIONAL { ?interest cincy:interestStartDate ?startDate . }
+  OPTIONAL { ?interest cincy:interestEndDate ?endDate . }
+
+  OPTIONAL {
+    ?interest cincy:remainderHolder ?remainderHolder .
+    ?remainderHolder rdfs:label ?remainderHolderName .
+  }
+
+  # Uncomment to filter by ownership type
+  # FILTER (?ownershipTypeLabel = "Survivorship Tenancy"@en)
+}
+ORDER BY ?parcelNum ?holderName
+LIMIT 100

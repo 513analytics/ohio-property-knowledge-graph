@@ -3,7 +3,7 @@
 ## File Information
 
 - **Ontology:** `cincy-housing.ttl`
-- **Version:** 0.1.0
+- **Version:** 0.3.0
 - **Created:** 2026-04-05
 - **IRI:** `http://kg.513analytics.com/ont/cincy`
 - **License:** CC0 1.0 Universal (Public Domain)
@@ -257,6 +257,97 @@ The smallest Census geographic unit, bounded by streets or visible features. Eve
 **Key Properties:**
 - `cincy:blockGEOID` (xsd:string, functional) — 15-digit GEOID: state (2) + county (3) + tract (6) + block (4). E.g., `390610027001001`
 - `cincy:blockNumber` (xsd:string) — 4-digit block number within its tract (e.g., `1001`)
+
+---
+
+### 10. Property Transfers
+
+#### **TransferEvent**
+Records an ownership change for a parcel. Enhanced in v0.3.0 with conveyance fee tracking, arm's-length classification, and transfer type categorization.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:hasTransfer`
+
+**Key Properties:**
+- `cincy:salePrice` (xsd:integer) — sale price in USD
+- `cincy:transferDate` (xsd:date) — date of transfer
+- `cincy:instrumentNumber` (xsd:string) — county recorder instrument number
+- `cincy:deedType` — links to DeedType (see `cincy-deed-types.ttl`)
+- `cincy:transferType` — links to TransferClassification (arm's length, foreclosure, gift, etc.)
+- `cincy:fromParty` — the grantor/seller
+- `cincy:toParty` — the grantee/buyer
+- `cincy:financedBy` — links to the Mortgage used to finance the purchase, if any
+- `cincy:conveyanceFee` (xsd:decimal) — Ohio conveyance fee paid ($4.00 per $1,000 in Hamilton County)
+- `cincy:isConveyanceFeeExempt` (xsd:boolean) — exempt per ORC 319.54(G)
+- `cincy:isArmsLength` (xsd:boolean) — true for market-rate transactions between unrelated parties
+- `cincy:dteFormNumber` (xsd:string) — Ohio DTE Form 100 or 100EX number
+
+---
+
+#### **Mortgage**
+A recorded lien on a parcel securing a debt obligation. Ohio is a lien theory state — the borrower retains legal title while the lender holds a security interest.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:hasMortgage`
+- `cincy:TransferEvent` via `cincy:financedBy`
+
+**Key Properties:**
+- `cincy:mortgageAmount` (xsd:integer) — original principal in USD
+- `cincy:mortgageDate` (xsd:date) — execution date
+- `cincy:mortgageRecordingDate` (xsd:date) — date recorded with county recorder
+- `cincy:mortgageInstrumentNumber` (xsd:string) — county recorder instrument number
+- `cincy:interestRate` (xsd:decimal) — annual rate as percentage
+- `cincy:termMonths` (xsd:integer) — loan term in months (e.g., 360 for 30-year)
+- `cincy:mortgageType` — links to MortgageType (conventional, FHA, VA, OHFA, etc.)
+- `cincy:paymentStructure` — links to PaymentStructure (amortizing, balloon, interest-only, etc.)
+- `cincy:mortgagor` — the borrower (Party)
+- `cincy:mortgagee` — the lender (Party)
+- `cincy:isOpenEnd` (xsd:boolean) — open-end mortgage under ORC 5301.232
+- `cincy:maxOpenEndAmount` (xsd:integer) — maximum secured amount for open-end mortgages
+- `cincy:isSatisfied` (xsd:boolean) — true if paid off (ORC 5301.36)
+- `cincy:satisfactionDate` (xsd:date) — date of payoff
+- `cincy:lienPriority` (xsd:integer) — priority position (1 = first mortgage)
+
+---
+
+#### **OwnershipInterest**
+Records how one or more parties hold title to a parcel. Ohio recognizes survivorship tenancy (ORC 5302.20), tenancy in common, life estate with remainder, trust ownership, and TOD designation. Ohio does NOT recognize tenancy by the entireties or community property.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:hasOwnershipInterest`
+
+**Key Properties:**
+- `cincy:interestHolder` — the party holding this interest
+- `cincy:ownershipType` — links to OwnershipType (survivorship tenancy, tenancy in common, life estate, etc.)
+- `cincy:interestFraction` (xsd:decimal) — fractional share (e.g., 0.5 for 50%)
+- `cincy:interestStartDate` (xsd:date) — when this interest was established
+- `cincy:interestEndDate` (xsd:date) — when this interest terminated
+- `cincy:remainderHolder` — for life estates: the party receiving the property upon the life tenant's death
+
+---
+
+### 11. Transfer and Mortgage Vocabularies
+
+See [`cincy-transfer-vocab.ttl`](../ontology/cincy-transfer-vocab.ttl) for four SKOS ConceptSchemes:
+
+**Transfer Classification Scheme** — Classifies the nature of transfers:
+- **Market Sales** — arm's length sale, short sale, land contract sale
+- **Court-Ordered and Involuntary** — judicial foreclosure, tax foreclosure (standard/expedited), sheriff's sale, auditor's sale, divorce, eminent domain
+- **Family and Estate** — gift, inheritance, survivorship transfer, TOD, life estate termination
+- **Entity and Organizational** — corporate/LLC transfer, trust transfer
+- **Government** — land bank transfer, government acquisition/disposition
+
+**Mortgage Type Scheme** — Classifies mortgage loans:
+- **Conventional** — conforming, jumbo, purchase money, open-end
+- **Government-Backed** — FHA, VA, USDA
+- **Ohio State Programs** — OHFA first-time homebuyer, Ohio Heroes, down payment assistance
+- **Special Purpose** — reverse mortgage, HELOC, construction loan, land installment contract
+
+**Payment Structure Scheme** — How the mortgage is repaid:
+- Fixed rate fully amortizing, adjustable rate (ARM), balloon, interest-only, graduated payment
+
+**Ownership Type Scheme** — Ohio-specific forms of title holding:
+- Sole ownership, survivorship tenancy (ORC 5302.20), tenancy in common, life estate, trust ownership, TOD designation (ORC 5302.22)
 
 ---
 

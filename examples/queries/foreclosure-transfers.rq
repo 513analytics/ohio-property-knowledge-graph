@@ -1,0 +1,44 @@
+# Foreclosure and Involuntary Transfers
+# Finds all transfers classified as foreclosures (judicial, tax standard,
+# tax expedited), sheriff's sales, and auditor's sales within a date range.
+#
+# Use case: Analyzing foreclosure activity by neighborhood, identifying
+# distressed properties, tracking land bank acquisitions.
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?parcelNum ?transferDate ?salePrice ?transferTypeLabel
+       ?deedTypeLabel ?grantee
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:parcelNumber ?parcelNum ;
+          cincy:hasTransfer ?transfer .
+
+  ?transfer a cincy:TransferEvent ;
+            cincy:transferDate ?transferDate ;
+            cincy:transferType ?transferType .
+
+  ?transferType skos:prefLabel ?transferTypeLabel ;
+                skos:broader cincy:TC_CourtOrdered .
+
+  OPTIONAL { ?transfer cincy:salePrice ?salePrice . }
+
+  OPTIONAL {
+    ?transfer cincy:deedType ?deedType .
+    ?deedType skos:prefLabel ?deedTypeLabel .
+  }
+
+  OPTIONAL {
+    ?transfer cincy:toParty ?buyer .
+    ?buyer rdfs:label ?grantee .
+  }
+
+  # Change date range as needed
+  FILTER (?transferDate >= "2025-01-01"^^xsd:date &&
+          ?transferDate <= "2025-12-31"^^xsd:date)
+}
+ORDER BY ?transferDate
+LIMIT 200
