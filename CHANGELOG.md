@@ -10,6 +10,16 @@ All notable changes to this project will be documented in this file.
 ## [0.3.0] - 2026-04-13
 
 ### Added
+- Heirs' property (tangled title) modeling
+  - New `cincy:HeirsPropertyDesignation` class for parcels where the owner of record
+    is deceased and title has not been cleared through probate. Properties include
+    decedent owner, death date, estimated heir count, occupancy status, and title
+    clearance tracking
+  - New `cincy:OT_HeirsProperty` ownership type in the OwnershipTypeScheme with
+    references to Ohio intestate succession (ORC 2105.06) and the Uniform Partition
+    of Heirs Property Act (ORC 5307.20 et seq., effective April 6, 2023)
+  - 2 new validation tests for heirs' property class and ownership type
+  - Glossary entry and documentation for heirs' property / tangled title
 - Property transfer process modeling with Ohio-specific legal details
   - Enhanced `cincy:TransferEvent` with conveyance fee tracking (`cincy:conveyanceFee`,
     `cincy:isConveyanceFeeExempt`), arm's-length classification (`cincy:isArmsLength`),

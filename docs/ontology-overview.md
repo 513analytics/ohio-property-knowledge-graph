@@ -326,6 +326,23 @@ Records how one or more parties hold title to a parcel. Ohio recognizes survivor
 
 ---
 
+#### **HeirsPropertyDesignation**
+A designation that a parcel is heirs' property (also called "tangled title"). This occurs when the owner of record is deceased and the surviving heirs continue to occupy or hold the property without clearing title through probate court. Under Ohio intestate succession (ORC 2105.06), heirs hold undivided fractional interests as tenants in common by operation of law, but without a recorded deed the title remains clouded and unmarketable. Ohio adopted the Uniform Partition of Heirs Property Act (ORC 5307.20 et seq., effective April 6, 2023) to protect heirs from forced partition sales.
+
+**Linked from:**
+- `cincy:Parcel` via `cincy:hasHeirsPropertyDesignation`
+
+**Key Properties:**
+- `cincy:decedentOwner` — the deceased party who remains the owner of record
+- `cincy:decedentDeathDate` (xsd:date) — date of death, if known
+- `cincy:estimatedHeirCount` (xsd:integer) — estimated number of potential heirs
+- `cincy:isOccupiedByHeir` (xsd:boolean) — whether one or more heirs occupy the property
+- `cincy:heirsPropertyIdentifiedDate` (xsd:date) — when the property was flagged
+- `cincy:isTitleCleared` (xsd:boolean) — whether title has been resolved
+- `cincy:titleClearedDate` (xsd:date) — date title was cleared, if resolved
+
+---
+
 ### 11. Transfer and Mortgage Vocabularies
 
 See [`cincy-transfer-vocab.ttl`](../ontology/cincy-transfer-vocab.ttl) for four SKOS ConceptSchemes:
@@ -347,7 +364,7 @@ See [`cincy-transfer-vocab.ttl`](../ontology/cincy-transfer-vocab.ttl) for four 
 - Fixed rate fully amortizing, adjustable rate (ARM), balloon, interest-only, graduated payment
 
 **Ownership Type Scheme** — Ohio-specific forms of title holding:
-- Sole ownership, survivorship tenancy (ORC 5302.20), tenancy in common, life estate, trust ownership, TOD designation (ORC 5302.22)
+- Sole ownership, survivorship tenancy (ORC 5302.20), tenancy in common, life estate, trust ownership, TOD designation (ORC 5302.22), heirs' property / tangled title
 
 ---
 

@@ -247,3 +247,18 @@ ASK WHERE {
   cincy:OT_TenancyInCommon a cincy:OwnershipType ;
                             skos:topConceptOf cincy:OwnershipTypeScheme .
 } ;
+
+# ============================================================================
+# TEST 9: Heirs' Property (Tangled Title)
+# ============================================================================
+
+# Test: HeirsPropertyDesignation class is defined
+ASK WHERE {
+  cincy:HeirsPropertyDesignation a owl:Class .
+} ;
+
+# Test: Heirs' Property ownership type concept exists
+ASK WHERE {
+  cincy:OT_HeirsProperty a cincy:OwnershipType ;
+                          skos:topConceptOf cincy:OwnershipTypeScheme .
+} ;

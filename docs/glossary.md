@@ -60,6 +60,9 @@ Tax relief based on property type or ownership status. Common exemptions include
 - **Nonprofit Exemption** — for qualified nonprofit organizations
 - **Agricultural Exemption** — for active farmland
 
+**Heirs' Property (Tangled Title)**
+A de facto ownership situation where the owner of record is deceased and the surviving heirs hold undivided fractional interests as tenants in common by operation of Ohio intestate succession law (ORC 2105.06), but title has never been cleared through probate court. The Auditor's records still show the decedent as owner, making the title clouded and unmarketable. Heirs cannot obtain traditional mortgages, qualify for many home repair and disaster assistance programs, or sell without first clearing title through probate, an heirship affidavit, or a quiet title action. The problem compounds across generations as the heir pool multiplies. Disproportionately affects lower-income and historically Black neighborhoods. Ohio adopted the Uniform Partition of Heirs Property Act (ORC 5307.20 et seq., effective April 6, 2023) to protect heirs from forced partition sales that can displace families and destroy generational wealth.
+
 **Foreclosure (Ohio)**
 The legal process by which a lender forces the sale of a property to satisfy an unpaid mortgage. Ohio is a judicial foreclosure state — all mortgage foreclosures must go through the courts of common pleas (ORC 2323.07). There is no power-of-sale or non-judicial foreclosure in Ohio. The owner may redeem by paying the full judgment amount up until the court confirms the sheriff's sale. Ohio has no statutory post-sale redemption period. Tax foreclosure follows a similar judicial process, with an expedited path available for abandoned or severely delinquent properties (ORC 323.25, 5721.18-19).
 
@@ -240,6 +243,7 @@ A geographic jurisdiction responsible for public education. School district levi
 | TIF | Tax Increment Financing |
 | TOD | Transfer on Death |
 | TTL | Turtle (RDF serialization format) |
+| UPHPA | Uniform Partition of Heirs Property Act |
 | USDA | U.S. Department of Agriculture |
 | VA | U.S. Department of Veterans Affairs |
 | W3C | World Wide Web Consortium |

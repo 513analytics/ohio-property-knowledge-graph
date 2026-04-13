@@ -259,6 +259,32 @@ cincy:OwnershipInterest
     and optional fractional share."""@en .
 
 # ---------------------------------------------------------------------------
+# 7c. HEIRS' PROPERTY — tangled title from uncleared estates
+# ---------------------------------------------------------------------------
+
+cincy:HeirsPropertyDesignation
+    a owl:Class ;
+    rdfs:label "Heirs' Property Designation"@en ;
+    rdfs:comment """A designation that a parcel is heirs' property (also called
+    'tangled title'). This occurs when the owner of record is deceased and
+    the surviving heirs continue to occupy or hold the property without
+    clearing title through probate court. Under Ohio intestate succession
+    law (ORC 2105.06), the heirs hold undivided fractional interests as
+    tenants in common by operation of law, but without a recorded deed the
+    title remains clouded and unmarketable. The owner of record in the
+    Auditor's system remains the decedent. Heirs' property is a significant
+    barrier to housing stability: heirs cannot obtain traditional mortgages,
+    secure homeowner's insurance at standard rates, qualify for FEMA
+    disaster assistance, or participate in home repair programs. The problem
+    compounds across generations as the number of potential heirs multiplies.
+    In Hamilton County this disproportionately affects lower-income
+    neighborhoods with older housing stock. Resolution requires a probate
+    proceeding, an heirship affidavit, or a quiet title action. Ohio
+    adopted the Uniform Partition of Heirs Property Act (ORC 5307.20 et
+    seq.) effective April 6, 2023, which provides protections against
+    forced partition sales that can displace heirs."""@en .
+
+# ---------------------------------------------------------------------------
 # 8. RENTAL REGISTRATION
 # ---------------------------------------------------------------------------
 
@@ -540,6 +566,24 @@ cincy:remainderHolder
     rdfs:label "remainder holder"@en ;
     rdfs:comment """For life estates: the party who receives the property upon the
     death of the life tenant."""@en .
+
+# --- Heirs' Property ---
+
+cincy:hasHeirsPropertyDesignation
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:HeirsPropertyDesignation ;
+    rdfs:label "has heirs' property designation"@en ;
+    rdfs:comment """Links a parcel to its heirs' property (tangled title)
+    designation. Indicates the owner of record is deceased and title has
+    not been cleared through probate."""@en .
+
+cincy:decedentOwner
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range cincy:Party ;
+    rdfs:label "decedent owner"@en ;
+    rdfs:comment "The deceased party who remains the owner of record."@en .
 
 # --- Spatial ---
 
@@ -1000,6 +1044,52 @@ cincy:interestEndDate
     rdfs:range xsd:date ;
     rdfs:label "interest end date"@en ;
     rdfs:comment "The date this ownership interest terminated (transfer, death, etc.)."@en .
+
+# --- Heirs' Property ---
+
+cincy:decedentDeathDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "decedent death date"@en ;
+    rdfs:comment "Date of death of the owner of record, if known."@en .
+
+cincy:estimatedHeirCount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "estimated heir count"@en ;
+    rdfs:comment """Estimated number of potential heirs with a fractional interest
+    by operation of intestate succession. May span multiple generations."""@en .
+
+cincy:isOccupiedByHeir
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "occupied by heir"@en ;
+    rdfs:comment "True if one or more heirs are currently occupying the property."@en .
+
+cincy:heirsPropertyIdentifiedDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "heirs' property identified date"@en ;
+    rdfs:comment "Date the property was identified or flagged as heirs' property."@en .
+
+cincy:isTitleCleared
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "title cleared"@en ;
+    rdfs:comment """True if the tangled title has been resolved through probate,
+    heirship affidavit, quiet title action, or other legal proceeding."""@en .
+
+cincy:titleClearedDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "title cleared date"@en ;
+    rdfs:comment "Date the title was cleared, if resolved."@en .
 
 cincy:sketchIdCode
     a owl:ObjectProperty ;

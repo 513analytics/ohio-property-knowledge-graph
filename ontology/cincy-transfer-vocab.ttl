@@ -604,3 +604,24 @@ cincy:OT_TransferOnDeath
     owner's lifetime and does not affect the owner's rights or ability
     to sell, mortgage, or otherwise deal with the property. No interest
     passes to the beneficiary until the owner's death."""@en .
+
+cincy:OT_HeirsProperty
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Heirs' Property (Tangled Title)"@en ;
+    skos:altLabel "Tangled Title"@en ;
+    skos:definition """A de facto ownership situation where the owner of record is
+    deceased and the surviving heirs hold undivided fractional interests
+    as tenants in common by operation of Ohio intestate succession law
+    (ORC 2105.06), but title has never been cleared through probate
+    court. The Auditor's records still show the decedent as owner. The
+    title is clouded and unmarketable — heirs cannot obtain traditional
+    mortgages, qualify for many home repair programs, or sell without
+    first clearing title through probate, heirship affidavit, or quiet
+    title action. The problem compounds across generations as the heir
+    pool grows. Disproportionately affects lower-income and historically
+    Black neighborhoods in Hamilton County. Ohio adopted the Uniform
+    Partition of Heirs Property Act (ORC 5307.20 et seq., effective
+    April 6, 2023) to protect heirs from forced partition sales that
+    can result in displacement and loss of generational wealth."""@en .
