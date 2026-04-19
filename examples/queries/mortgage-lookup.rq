@@ -1,0 +1,49 @@
+# Mortgage Lookup for a Parcel
+# Returns all mortgages recorded against a parcel, including lender, amount,
+# interest rate, term, type, payment structure, and satisfaction status.
+#
+# Use case: Understanding the financing history and current liens on a
+# property. Identifying active vs. satisfied mortgages.
+
+PREFIX cincy: <http://kg.513analytics.com/ont/cincy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?parcelNum ?mortgageDate ?mortgageAmount ?interestRate ?termMonths
+       ?mortgageTypeLabel ?paymentLabel ?lenderName ?lienPriority
+       ?isSatisfied ?satisfactionDate
+WHERE {
+  ?parcel a cincy:Parcel ;
+          cincy:parcelNumber ?parcelNum ;
+          cincy:hasMortgage ?mortgage .
+
+  ?mortgage a cincy:Mortgage ;
+            cincy:mortgageDate ?mortgageDate .
+
+  OPTIONAL { ?mortgage cincy:mortgageAmount ?mortgageAmount . }
+  OPTIONAL { ?mortgage cincy:interestRate ?interestRate . }
+  OPTIONAL { ?mortgage cincy:termMonths ?termMonths . }
+  OPTIONAL { ?mortgage cincy:lienPriority ?lienPriority . }
+  OPTIONAL { ?mortgage cincy:isSatisfied ?isSatisfied . }
+  OPTIONAL { ?mortgage cincy:satisfactionDate ?satisfactionDate . }
+
+  OPTIONAL {
+    ?mortgage cincy:mortgageType ?mortgageType .
+    ?mortgageType skos:prefLabel ?mortgageTypeLabel .
+  }
+
+  OPTIONAL {
+    ?mortgage cincy:paymentStructure ?paymentStructure .
+    ?paymentStructure skos:prefLabel ?paymentLabel .
+  }
+
+  OPTIONAL {
+    ?mortgage cincy:mortgagee ?lender .
+    ?lender rdfs:label ?lenderName .
+  }
+
+  # Change this filter to the parcel number of interest
+  FILTER (?parcelNum = "0012345")
+}
+ORDER BY ?mortgageDate

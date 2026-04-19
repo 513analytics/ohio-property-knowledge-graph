@@ -12,6 +12,9 @@ This project provides a semantic ontology for Cincinnati and Hamilton County, Oh
 - **Taxation** — tax districts, levies, and tax bills
 - **Land use classification** — standardized codes for property use types
 - **Exemptions and abatements** — tax relief mechanisms and their tracking
+- **Property transfers** — deed types, transfer classifications, and conveyance fees
+- **Mortgages** — liens, loan types, payment structures, and satisfaction tracking
+- **Ownership interests** — Ohio-specific forms of title holding (survivorship tenancy, tenancy in common, life estate, TOD)
 
 ## Getting Started
 

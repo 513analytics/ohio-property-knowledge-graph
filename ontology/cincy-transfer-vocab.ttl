@@ -1,0 +1,627 @@
+@prefix cincy:   <http://kg.513analytics.com/ont/cincy#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# =============================================================================
+# TRANSFER-RELATED CONTROLLED VOCABULARIES
+#
+# Four SKOS ConceptSchemes for classifying property transfers, mortgages,
+# payment structures, and ownership interests in Hamilton County, Ohio.
+# =============================================================================
+
+
+# #############################################################################
+# 1. TRANSFER CLASSIFICATION SCHEME
+# #############################################################################
+
+cincy:TransferClassificationScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Transfer Classification Codes"@en ;
+    skos:prefLabel "Transfer Classification Codes"@en ;
+    skos:definition """Classifies the nature of a property transfer event.
+    Orthogonal to deed type — the same deed type (e.g., warranty deed) can be
+    used for an arm's length sale, a gift, or a corporate restructuring. This
+    scheme captures the economic and legal character of the transfer."""@en .
+
+cincy:TransferClassification
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Transfer Classification"@en .
+
+# --- Top-level categories ---
+
+cincy:TC_MarketSale
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:topConceptOf cincy:TransferClassificationScheme ;
+    skos:prefLabel "Market Sales"@en ;
+    skos:definition "Transfers involving an arm's length exchange of property for market-rate consideration."@en .
+
+cincy:TC_CourtOrdered
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:topConceptOf cincy:TransferClassificationScheme ;
+    skos:prefLabel "Court-Ordered and Involuntary Transfers"@en ;
+    skos:definition "Transfers resulting from judicial proceedings, foreclosure, or government action."@en .
+
+cincy:TC_FamilyEstate
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:topConceptOf cincy:TransferClassificationScheme ;
+    skos:prefLabel "Family and Estate Transfers"@en ;
+    skos:definition "Transfers between related parties, through estates, or by operation of law (survivorship, TOD)."@en .
+
+cincy:TC_EntityTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:topConceptOf cincy:TransferClassificationScheme ;
+    skos:prefLabel "Entity and Organizational Transfers"@en ;
+    skos:definition "Transfers involving corporations, LLCs, trusts, or other legal entities."@en .
+
+cincy:TC_GovernmentTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:topConceptOf cincy:TransferClassificationScheme ;
+    skos:prefLabel "Government Transfers"@en ;
+    skos:definition "Transfers to or from government entities, land banks, or by eminent domain."@en .
+
+# --- Market Sales ---
+
+cincy:TC_ArmsLength
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_MarketSale ;
+    skos:prefLabel "Arm's Length Sale"@en ;
+    skos:definition """A sale between unrelated parties, each acting in their own
+    self-interest, at fair market value. The standard used for sales ratio
+    studies and assessed value calibration."""@en .
+
+cincy:TC_ShortSale
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_MarketSale ;
+    skos:prefLabel "Short Sale"@en ;
+    skos:definition """A sale where the lender agrees to accept less than the
+    outstanding mortgage balance. The sale price is below market value but
+    the transaction is still between willing parties."""@en .
+
+cincy:TC_LandContract
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_MarketSale ;
+    skos:prefLabel "Land Contract Sale"@en ;
+    skos:definition """A sale via land installment contract (ORC 5313) where the
+    buyer makes payments over time and the seller retains legal title until
+    the contract is fulfilled. Equitable title transfers to the buyer at
+    execution."""@en .
+
+# --- Court-Ordered and Involuntary ---
+
+cincy:TC_JudicialForeclosure
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Judicial Foreclosure"@en ;
+    skos:definition """A court-ordered sale to satisfy a mortgage lien. Ohio
+    requires judicial foreclosure through the courts of common pleas
+    (ORC 2323.07). The owner may redeem by paying the full judgment amount
+    up until the court confirms the sheriff's sale. Ohio has no statutory
+    post-sale redemption period."""@en .
+
+cincy:TC_TaxForeclosureStandard
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Tax Foreclosure (Standard)"@en ;
+    skos:definition """Standard tax foreclosure for delinquent taxes through the
+    county prosecutor (ORC 5721.18)."""@en .
+
+cincy:TC_TaxForeclosureExpedited
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Tax Foreclosure (Expedited)"@en ;
+    skos:definition """Expedited tax foreclosure (ORC 323.25, 5721.18-19) available
+    for abandoned or tax-delinquent properties exceeding a threshold, with a
+    streamlined court process."""@en .
+
+cincy:TC_SheriffSale
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Sheriff's Sale"@en ;
+    skos:definition """Public auction conducted by the county sheriff following a
+    court-ordered foreclosure. The highest bidder receives a sheriff's deed
+    upon court confirmation."""@en .
+
+cincy:TC_AuditorSale
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Auditor's Sale"@en ;
+    skos:definition """Sale of tax-forfeited land by the county auditor. Property
+    that failed to sell at sheriff's sale for delinquent taxes is forfeited
+    to the state and offered by the auditor."""@en .
+
+cincy:TC_DivorceTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Divorce / Dissolution Transfer"@en ;
+    skos:definition """Transfer of property pursuant to a divorce decree or
+    dissolution agreement. Ohio uses equitable distribution
+    (ORC 3105.171). Exempt from conveyance fee."""@en .
+
+cincy:TC_EminentDomain
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_CourtOrdered ;
+    skos:prefLabel "Eminent Domain / Appropriation"@en ;
+    skos:definition """Involuntary taking of private property by a government
+    entity for public use with just compensation (Ohio Constitution
+    Art. I, Sec. 19; ORC Chapter 163)."""@en .
+
+# --- Family and Estate ---
+
+cincy:TC_Gift
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_FamilyEstate ;
+    skos:prefLabel "Gift / Donation"@en ;
+    skos:definition """Transfer without consideration (no money exchanged). Often
+    between family members. Exempt from conveyance fee if between spouses
+    or parent and child."""@en .
+
+cincy:TC_Inheritance
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_FamilyEstate ;
+    skos:prefLabel "Inheritance / Probate Transfer"@en ;
+    skos:definition """Transfer through a decedent's estate, either by will
+    (testate) or intestate succession. Executed via executor's or
+    administrator's deed. Exempt from conveyance fee."""@en .
+
+cincy:TC_SurvivorshipTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_FamilyEstate ;
+    skos:prefLabel "Survivorship Transfer"@en ;
+    skos:definition """Automatic transfer by operation of law when a joint owner
+    with survivorship rights dies. The surviving owner(s) obtain full
+    title by recording an affidavit of surviving tenant. No probate
+    required. Exempt from conveyance fee."""@en .
+
+cincy:TC_TransferOnDeath
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_FamilyEstate ;
+    skos:prefLabel "Transfer on Death (TOD)"@en ;
+    skos:definition """Non-probate transfer via TOD designation affidavit
+    (ORC 5302.22). The beneficiary receives the property automatically
+    upon the owner's death. Revocable during the owner's lifetime.
+    Exempt from conveyance fee."""@en .
+
+cincy:TC_LifeEstateTermination
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_FamilyEstate ;
+    skos:prefLabel "Life Estate Termination"@en ;
+    skos:definition """Transfer to the remainderman upon the death of the life
+    tenant. The remainder interest vests automatically without probate.
+    Exempt from conveyance fee."""@en .
+
+# --- Entity and Organizational ---
+
+cincy:TC_CorporateTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_EntityTransfer ;
+    skos:prefLabel "Corporate / LLC Transfer"@en ;
+    skos:definition """Transfer to or from a corporation or LLC, including
+    contributions to capital, distributions to members, or transfers
+    incident to a merger or reorganization. May be exempt from conveyance
+    fee if no consideration is involved."""@en .
+
+cincy:TC_TrustTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_EntityTransfer ;
+    skos:prefLabel "Trust Transfer"@en ;
+    skos:definition """Transfer to or from a trust. Transfers to a revocable
+    living trust where the grantor is the beneficiary are exempt from
+    conveyance fee."""@en .
+
+# --- Government ---
+
+cincy:TC_LandBankTransfer
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_GovernmentTransfer ;
+    skos:prefLabel "Land Bank Transfer"@en ;
+    skos:definition """Transfer to or from a county land reutilization corporation
+    (land bank) under ORC Chapter 5722. In Hamilton County, the HCLRC
+    (Hamilton County Land Reutilization Corporation) acquires tax-forfeited,
+    vacant, and abandoned properties for rehabilitation or demolition.
+    Exempt from conveyance fee."""@en .
+
+cincy:TC_GovernmentAcquisition
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_GovernmentTransfer ;
+    skos:prefLabel "Government Acquisition"@en ;
+    skos:definition """Purchase or acquisition of property by a federal, state,
+    or local government entity. Exempt from conveyance fee."""@en .
+
+cincy:TC_GovernmentDisposition
+    a cincy:TransferClassification ;
+    skos:inScheme cincy:TransferClassificationScheme ;
+    skos:broader cincy:TC_GovernmentTransfer ;
+    skos:prefLabel "Government Disposition"@en ;
+    skos:definition """Sale or transfer of government-owned property to a private
+    party. May be subject to conveyance fee depending on the
+    circumstances."""@en .
+
+
+# #############################################################################
+# 2. MORTGAGE TYPE SCHEME
+# #############################################################################
+
+cincy:MortgageTypeScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Mortgage Type Codes"@en ;
+    skos:prefLabel "Mortgage Type Codes"@en ;
+    skos:definition """Classifies mortgage loans by their source, guarantee
+    structure, and purpose. Includes conventional, government-backed, and
+    Ohio state program loans."""@en .
+
+cincy:MortgageType
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Mortgage Type"@en .
+
+# --- Top-level categories ---
+
+cincy:MT_Conventional
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:topConceptOf cincy:MortgageTypeScheme ;
+    skos:prefLabel "Conventional Mortgages"@en ;
+    skos:definition "Mortgage loans not insured or guaranteed by a government agency."@en .
+
+cincy:MT_GovernmentBacked
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:topConceptOf cincy:MortgageTypeScheme ;
+    skos:prefLabel "Government-Backed Mortgages"@en ;
+    skos:definition "Mortgage loans insured or guaranteed by a federal government agency."@en .
+
+cincy:MT_StateProgram
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:topConceptOf cincy:MortgageTypeScheme ;
+    skos:prefLabel "Ohio State Program Mortgages"@en ;
+    skos:definition "Mortgage loans offered through Ohio Housing Finance Agency (OHFA) and other state programs."@en .
+
+cincy:MT_SpecialPurpose
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:topConceptOf cincy:MortgageTypeScheme ;
+    skos:prefLabel "Special Purpose Mortgages"@en ;
+    skos:definition "Non-standard mortgage types including reverse mortgages, HELOCs, and construction loans."@en .
+
+# --- Conventional ---
+
+cincy:MT_ConventionalConforming
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_Conventional ;
+    skos:prefLabel "Conventional Conforming"@en ;
+    skos:definition """A conventional mortgage that meets Fannie Mae / Freddie Mac
+    guidelines for loan limits, credit score, and debt-to-income ratio."""@en .
+
+cincy:MT_ConventionalJumbo
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_Conventional ;
+    skos:prefLabel "Conventional Jumbo"@en ;
+    skos:definition """A conventional mortgage exceeding the Fannie Mae / Freddie Mac
+    conforming loan limit. Typically requires a larger down payment and
+    stronger credit profile."""@en .
+
+cincy:MT_PurchaseMoney
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_Conventional ;
+    skos:prefLabel "Purchase Money Mortgage"@en ;
+    skos:definition """A mortgage given by the buyer to the seller as part of the
+    purchase price. Has automatic priority over other liens attaching at
+    the time of acquisition under Ohio common law."""@en .
+
+cincy:MT_OpenEnd
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_Conventional ;
+    skos:prefLabel "Open-End Mortgage"@en ;
+    skos:definition """An open-end mortgage under ORC 5301.232 that allows additional
+    advances up to a stated maximum without re-recording. Priority for all
+    advances relates back to the original recording date."""@en .
+
+# --- Government-Backed ---
+
+cincy:MT_FHA
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_GovernmentBacked ;
+    skos:prefLabel "FHA Loan"@en ;
+    skos:definition """Mortgage insured by the Federal Housing Administration. Lower
+    down payment requirements (3.5%) and more flexible credit standards.
+    Requires mortgage insurance premiums (MIP)."""@en .
+
+cincy:MT_VA
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_GovernmentBacked ;
+    skos:prefLabel "VA Loan"@en ;
+    skos:definition """Mortgage guaranteed by the U.S. Department of Veterans Affairs.
+    Available to eligible veterans, active-duty service members, and
+    surviving spouses. No down payment or private mortgage insurance
+    required."""@en .
+
+cincy:MT_USDA
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_GovernmentBacked ;
+    skos:prefLabel "USDA Rural Development Loan"@en ;
+    skos:definition """Mortgage guaranteed by the USDA Rural Development program.
+    Available for properties in eligible rural areas. No down payment
+    required. Income limits apply."""@en .
+
+# --- Ohio State Programs ---
+
+cincy:MT_OHFAFirstTime
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_StateProgram ;
+    skos:prefLabel "OHFA First-Time Homebuyer"@en ;
+    skos:definition """Below-market-rate 30-year fixed mortgage from the Ohio
+    Housing Finance Agency. Available to borrowers who have not owned a
+    primary residence in the prior three years (with exceptions for target
+    areas and veterans). Includes down payment assistance options of 2.5%
+    or 5% as a grant or forgivable second mortgage."""@en .
+
+cincy:MT_OhioHeroes
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_StateProgram ;
+    skos:prefLabel "Ohio Heroes"@en ;
+    skos:definition """OHFA program offering reduced mortgage rates to military
+    members, veterans, teachers, first responders, and other qualifying
+    public servants."""@en .
+
+cincy:MT_OHFADownPaymentAssistance
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_StateProgram ;
+    skos:prefLabel "OHFA Down Payment Assistance"@en ;
+    skos:definition """A second mortgage or grant provided by OHFA to cover down
+    payment and closing costs. Typically 2.5% or 5% of the purchase price.
+    May be forgivable after a specified period."""@en .
+
+# --- Special Purpose ---
+
+cincy:MT_Reverse
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_SpecialPurpose ;
+    skos:prefLabel "Reverse Mortgage"@en ;
+    skos:definition """A mortgage allowing homeowners 62 or older to convert home
+    equity into cash. No monthly payments required; the loan is repaid
+    when the borrower sells, moves, or dies. Most common form is the
+    FHA-insured Home Equity Conversion Mortgage (HECM)."""@en .
+
+cincy:MT_HELOC
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_SpecialPurpose ;
+    skos:prefLabel "Home Equity Line of Credit (HELOC)"@en ;
+    skos:definition """A revolving line of credit secured by the borrower's home
+    equity. Typically recorded as a second or subordinate mortgage.
+    Often structured as an open-end mortgage under ORC 5301.232."""@en .
+
+cincy:MT_Construction
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_SpecialPurpose ;
+    skos:prefLabel "Construction Loan"@en ;
+    skos:definition """A short-term loan to finance new construction or major
+    renovation. Funds are disbursed in draws as work progresses. Typically
+    converts to a permanent mortgage upon completion
+    (construction-to-permanent loan)."""@en .
+
+cincy:MT_LandContract
+    a cincy:MortgageType ;
+    skos:inScheme cincy:MortgageTypeScheme ;
+    skos:broader cincy:MT_SpecialPurpose ;
+    skos:prefLabel "Land Installment Contract"@en ;
+    skos:definition """An installment purchase agreement under ORC Chapter 5313
+    where the buyer makes payments over time and the seller retains legal
+    title until the contract is fulfilled. Not technically a mortgage but
+    functions as seller financing. Ohio law provides specific consumer
+    protections for land contracts."""@en .
+
+
+# #############################################################################
+# 3. PAYMENT STRUCTURE SCHEME
+# #############################################################################
+
+cincy:PaymentStructureScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Mortgage Payment Structure Codes"@en ;
+    skos:prefLabel "Mortgage Payment Structure Codes"@en ;
+    skos:definition """Classifies how a mortgage is repaid over its term. Determines
+    the pattern of principal and interest payments."""@en .
+
+cincy:PaymentStructure
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Payment Structure"@en .
+
+cincy:PS_FixedFullyAmortizing
+    a cincy:PaymentStructure ;
+    skos:inScheme cincy:PaymentStructureScheme ;
+    skos:topConceptOf cincy:PaymentStructureScheme ;
+    skos:prefLabel "Fixed Rate, Fully Amortizing"@en ;
+    skos:definition """Equal monthly payments of principal and interest over the full
+    loan term. The interest rate is fixed for the life of the loan. The most
+    common mortgage structure (e.g., 30-year or 15-year fixed)."""@en .
+
+cincy:PS_AdjustableRate
+    a cincy:PaymentStructure ;
+    skos:inScheme cincy:PaymentStructureScheme ;
+    skos:topConceptOf cincy:PaymentStructureScheme ;
+    skos:prefLabel "Adjustable Rate (ARM)"@en ;
+    skos:definition """The interest rate adjusts periodically based on a market index
+    (e.g., SOFR) plus a margin. Typically has a fixed introductory period
+    (e.g., 5/1 ARM = fixed for 5 years, adjusts annually thereafter).
+    Subject to rate caps (periodic and lifetime)."""@en .
+
+cincy:PS_Balloon
+    a cincy:PaymentStructure ;
+    skos:inScheme cincy:PaymentStructureScheme ;
+    skos:topConceptOf cincy:PaymentStructureScheme ;
+    skos:prefLabel "Balloon Payment"@en ;
+    skos:definition """Regular payments (often interest-only or partially amortizing)
+    during the loan term with a large lump-sum payment of the remaining
+    principal balance due at maturity. Common terms are 5 or 7 years.
+    The borrower must refinance or pay the balloon at term end."""@en .
+
+cincy:PS_InterestOnly
+    a cincy:PaymentStructure ;
+    skos:inScheme cincy:PaymentStructureScheme ;
+    skos:topConceptOf cincy:PaymentStructureScheme ;
+    skos:prefLabel "Interest-Only"@en ;
+    skos:definition """Payments cover only interest for an initial period (typically
+    5-10 years), after which the loan converts to a fully amortizing
+    schedule for the remaining term. Results in higher payments after the
+    interest-only period ends."""@en .
+
+cincy:PS_GraduatedPayment
+    a cincy:PaymentStructure ;
+    skos:inScheme cincy:PaymentStructureScheme ;
+    skos:topConceptOf cincy:PaymentStructureScheme ;
+    skos:prefLabel "Graduated Payment"@en ;
+    skos:definition """Payments start low and increase at scheduled intervals
+    (typically annually for 5-10 years) before leveling off. Designed for
+    borrowers who expect income growth. Early payments may not fully cover
+    interest, resulting in negative amortization."""@en .
+
+
+# #############################################################################
+# 4. OWNERSHIP TYPE SCHEME
+# #############################################################################
+
+cincy:OwnershipTypeScheme
+    a skos:ConceptScheme ;
+    rdfs:label "Ohio Ownership Type Codes"@en ;
+    skos:prefLabel "Ohio Ownership Type Codes"@en ;
+    skos:definition """Classifies how title to real property is held in Ohio.
+    Ohio recognizes survivorship tenancy (ORC 5302.20), tenancy in common,
+    life estate with remainder, trust ownership, and TOD designation.
+    Ohio does NOT recognize tenancy by the entireties or community
+    property."""@en .
+
+cincy:OwnershipType
+    a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Ownership Type"@en .
+
+cincy:OT_SoleOwnership
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Sole Ownership"@en ;
+    skos:definition """Title held by a single individual or entity with exclusive
+    ownership rights. The simplest form of property ownership."""@en .
+
+cincy:OT_SurvivorshipTenancy
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Survivorship Tenancy"@en ;
+    skos:definition """Ohio's statutory form of joint ownership with right of
+    survivorship (ORC 5302.20). The deed must include explicit survivorship
+    language such as 'for their joint lives, remainder to the survivor.'
+    Upon the death of one tenant, the surviving tenant(s) automatically
+    receive full title without probate. This is Ohio's functional
+    replacement for common-law joint tenancy. The traditional four unities
+    (time, title, interest, possession) are not strictly required under the
+    Ohio statutory approach."""@en .
+
+cincy:OT_TenancyInCommon
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Tenancy in Common"@en ;
+    skos:definition """The default form of concurrent ownership in Ohio when the
+    deed does not include survivorship language. Each tenant holds an
+    undivided fractional interest that is freely transferable and
+    inheritable. Interests need not be equal. There is no right of
+    survivorship — a deceased tenant's share passes through their
+    estate."""@en .
+
+cincy:OT_LifeEstate
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Life Estate"@en ;
+    skos:definition """A present possessory interest lasting for the lifetime of
+    the life tenant. Upon the life tenant's death, the property passes
+    automatically to the remainderman (remainder holder) without probate.
+    The life tenant must avoid waste (ORC 5301.011 et seq.) and is
+    responsible for property taxes and maintenance. Commonly used in
+    estate planning to retain use while transferring future ownership."""@en .
+
+cincy:OT_TrustOwnership
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Trust Ownership"@en ;
+    skos:definition """Title held by a trustee on behalf of trust beneficiaries.
+    Common forms include revocable living trusts (used to avoid probate)
+    and irrevocable trusts (used for asset protection and estate planning).
+    The trustee has legal title; beneficiaries hold equitable interests."""@en .
+
+cincy:OT_TransferOnDeath
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Transfer on Death (TOD) Designation"@en ;
+    skos:definition """A non-probate transfer mechanism unique to Ohio
+    (ORC 5302.22). The owner records a TOD designation affidavit naming
+    one or more beneficiaries who receive the property automatically
+    upon the owner's death. The designation is revocable during the
+    owner's lifetime and does not affect the owner's rights or ability
+    to sell, mortgage, or otherwise deal with the property. No interest
+    passes to the beneficiary until the owner's death."""@en .
+
+cincy:OT_HeirsProperty
+    a cincy:OwnershipType ;
+    skos:inScheme cincy:OwnershipTypeScheme ;
+    skos:topConceptOf cincy:OwnershipTypeScheme ;
+    skos:prefLabel "Heirs' Property (Tangled Title)"@en ;
+    skos:altLabel "Tangled Title"@en ;
+    skos:definition """A de facto ownership situation where the owner of record is
+    deceased and the surviving heirs hold undivided fractional interests
+    as tenants in common by operation of Ohio intestate succession law
+    (ORC 2105.06), but title has never been cleared through probate
+    court. The Auditor's records still show the decedent as owner. The
+    title is clouded and unmarketable — heirs cannot obtain traditional
+    mortgages, qualify for many home repair programs, or sell without
+    first clearing title through probate, heirship affidavit, or quiet
+    title action. The problem compounds across generations as the heir
+    pool grows. Disproportionately affects lower-income and historically
+    Black neighborhoods in Hamilton County. Ohio adopted the Uniform
+    Partition of Heirs Property Act (ORC 5307.20 et seq., effective
+    April 6, 2023) to protect heirs from forced partition sales that
+    can result in displacement and loss of generational wealth."""@en .

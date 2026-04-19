@@ -25,7 +25,7 @@
     W3C OWL-Time, schema.org, and QUDT."""@en ;
     dcterms:creator "513 Analytics" ;
     dcterms:created "2026-04-05"^^xsd:date ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.3.0" ;
     owl:imports <http://www.opengis.net/ont/geosparql> ,
                 <http://www.w3.org/2004/02/skos/core> ,
                 <http://www.w3.org/2006/time> .
@@ -218,8 +218,71 @@ cincy:Exemption
 cincy:TransferEvent
     a owl:Class ;
     rdfs:label "Transfer Event"@en ;
-    rdfs:comment """Records an ownership change. Carries sale price, deed type,
-    instrument number. Foundation for investor activity analysis."""@en .
+    rdfs:comment """Records an ownership change for a parcel. Captures sale price,
+    deed type, instrument number, conveyance fee, and transfer classification.
+    Ohio requires filing DTE Form 100 with the county auditor for all transfers.
+    The Ohio conveyance fee (ORC 319.54) is $1.00 per $1,000 of consideration
+    at the state level plus up to $3.00 per $1,000 as a county permissive fee;
+    Hamilton County levies the full permissive fee for a combined rate of $4.00
+    per $1,000. Certain transfers are exempt per ORC 319.54(G)."""@en .
+
+# ---------------------------------------------------------------------------
+# 7a. MORTGAGE — lien securing a debt obligation
+# ---------------------------------------------------------------------------
+
+cincy:Mortgage
+    a owl:Class ;
+    rdfs:label "Mortgage"@en ;
+    rdfs:comment """A recorded lien on a parcel securing a debt obligation. Ohio is
+    a lien theory state: the borrower retains legal title while the lender holds
+    a security interest (ORC Chapter 5301). Mortgages must be recorded with the
+    county recorder to establish constructive notice and lien priority under
+    Ohio's race-notice recording statute (ORC 5301.25). Lenders must provide a
+    certificate of satisfaction within 90 days of payoff (ORC 5301.36). Ohio
+    also recognizes open-end mortgages (ORC 5301.232), which secure future
+    advances up to a stated maximum without re-recording."""@en .
+
+# ---------------------------------------------------------------------------
+# 7b. OWNERSHIP INTEREST — how parties hold title
+# ---------------------------------------------------------------------------
+
+cincy:OwnershipInterest
+    a owl:Class ;
+    rdfs:label "Ownership Interest"@en ;
+    rdfs:comment """Records how one or more parties hold title to a parcel. Ohio
+    recognizes several forms of concurrent ownership: survivorship tenancy
+    (ORC 5302.20), tenancy in common (the default when survivorship language
+    is absent), and life estate with remainder. Ohio does NOT recognize tenancy
+    by the entireties or community property. Trust ownership and Transfer on
+    Death (TOD) designation affidavits (ORC 5302.22) are also modeled. Each
+    OwnershipInterest links a party to a parcel with a specific ownership type
+    and optional fractional share."""@en .
+
+# ---------------------------------------------------------------------------
+# 7c. HEIRS' PROPERTY — tangled title from uncleared estates
+# ---------------------------------------------------------------------------
+
+cincy:HeirsPropertyDesignation
+    a owl:Class ;
+    rdfs:label "Heirs' Property Designation"@en ;
+    rdfs:comment """A designation that a parcel is heirs' property (also called
+    'tangled title'). This occurs when the owner of record is deceased and
+    the surviving heirs continue to occupy or hold the property without
+    clearing title through probate court. Under Ohio intestate succession
+    law (ORC 2105.06), the heirs hold undivided fractional interests as
+    tenants in common by operation of law, but without a recorded deed the
+    title remains clouded and unmarketable. The owner of record in the
+    Auditor's system remains the decedent. Heirs' property is a significant
+    barrier to housing stability: heirs cannot obtain traditional mortgages,
+    secure homeowner's insurance at standard rates, qualify for FEMA
+    disaster assistance, or participate in home repair programs. The problem
+    compounds across generations as the number of potential heirs multiplies.
+    In Hamilton County this disproportionately affects lower-income
+    neighborhoods with older housing stock. Resolution requires a probate
+    proceeding, an heirship affidavit, or a quiet title action. Ohio
+    adopted the Uniform Partition of Heirs Property Act (ORC 5307.20 et
+    seq.) effective April 6, 2023, which provides protections against
+    forced partition sales that can displace heirs."""@en .
 
 # ---------------------------------------------------------------------------
 # 8. RENTAL REGISTRATION
@@ -417,6 +480,110 @@ cincy:toParty
     rdfs:domain cincy:TransferEvent ;
     rdfs:range cincy:Party ;
     rdfs:label "to party (buyer/grantee)"@en .
+
+cincy:transferType
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range cincy:TransferClassification ;
+    rdfs:label "transfer type"@en ;
+    rdfs:comment """Classifies the nature of the transfer (arm's length sale,
+    foreclosure, gift, etc.). Orthogonal to deed type — a warranty deed can
+    be used for an arm's length sale or a gift."""@en .
+
+cincy:financedBy
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range cincy:Mortgage ;
+    rdfs:label "financed by"@en ;
+    rdfs:comment "Links a transfer event to the mortgage used to finance the purchase, if any."@en .
+
+# --- Mortgage ---
+
+cincy:hasMortgage
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:Mortgage ;
+    rdfs:label "has mortgage"@en ;
+    rdfs:comment "Links a parcel to a mortgage lien recorded against it."@en .
+
+cincy:mortgagor
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range cincy:Party ;
+    rdfs:label "mortgagor (borrower)"@en ;
+    rdfs:comment "The borrower — the party who pledges the property as security."@en .
+
+cincy:mortgagee
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range cincy:Party ;
+    rdfs:label "mortgagee (lender)"@en ;
+    rdfs:comment "The lender — the party who holds the lien on the property."@en .
+
+cincy:mortgageType
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range cincy:MortgageType ;
+    rdfs:label "mortgage type"@en ;
+    rdfs:comment "Classification of the mortgage (conventional, FHA, VA, OHFA, etc.)."@en .
+
+cincy:paymentStructure
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range cincy:PaymentStructure ;
+    rdfs:label "payment structure"@en ;
+    rdfs:comment "How the mortgage is repaid (fully amortizing, balloon, interest-only, etc.)."@en .
+
+# --- Ownership Interest ---
+
+cincy:hasOwnershipInterest
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:OwnershipInterest ;
+    rdfs:label "has ownership interest"@en ;
+    rdfs:comment """Links a parcel to the ownership interest records that describe
+    how title is held. A parcel may have multiple concurrent interests (e.g.,
+    two parties as survivorship tenants, or a life tenant and remainderman)."""@en .
+
+cincy:interestHolder
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range cincy:Party ;
+    rdfs:label "interest holder"@en ;
+    rdfs:comment "The party who holds this ownership interest."@en .
+
+cincy:ownershipType
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range cincy:OwnershipType ;
+    rdfs:label "ownership type"@en ;
+    rdfs:comment "The form of ownership (survivorship tenancy, tenancy in common, life estate, etc.)."@en .
+
+cincy:remainderHolder
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range cincy:Party ;
+    rdfs:label "remainder holder"@en ;
+    rdfs:comment """For life estates: the party who receives the property upon the
+    death of the life tenant."""@en .
+
+# --- Heirs' Property ---
+
+cincy:hasHeirsPropertyDesignation
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:Parcel ;
+    rdfs:range cincy:HeirsPropertyDesignation ;
+    rdfs:label "has heirs' property designation"@en ;
+    rdfs:comment """Links a parcel to its heirs' property (tangled title)
+    designation. Indicates the owner of record is deceased and title has
+    not been cleared through probate."""@en .
+
+cincy:decedentOwner
+    a owl:ObjectProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range cincy:Party ;
+    rdfs:label "decedent owner"@en ;
+    rdfs:comment "The deceased party who remains the owner of record."@en .
 
 # --- Spatial ---
 
@@ -728,6 +895,201 @@ cincy:deedType
     rdfs:range cincy:DeedType ;
     rdfs:label "deed type"@en ;
     rdfs:comment "Links a transfer event to its deed type classification (see cincy-deed-types.ttl)."@en .
+
+cincy:conveyanceFee
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "conveyance fee (USD)"@en ;
+    rdfs:comment """The Ohio real estate transfer tax paid on this conveyance.
+    Calculated at $4.00 per $1,000 of consideration in Hamilton County
+    ($1.00 state + $3.00 county permissive fee per ORC 319.54)."""@en .
+
+cincy:isConveyanceFeeExempt
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "conveyance fee exempt"@en ;
+    rdfs:comment """True if the transfer is exempt from the Ohio conveyance fee
+    under ORC 319.54(G). Common exemptions include transfers between spouses,
+    parent-child transfers, court-ordered transfers, government transfers,
+    and transfers with consideration under $100."""@en .
+
+cincy:isArmsLength
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "arm's length transaction"@en ;
+    rdfs:comment """True if the transfer is between unrelated parties at fair
+    market value. Non-arm's-length transactions (gifts, family transfers,
+    corporate restructurings) are excluded from sales ratio studies."""@en .
+
+cincy:dteFormNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:TransferEvent ;
+    rdfs:range xsd:string ;
+    rdfs:label "DTE form number"@en ;
+    rdfs:comment """Ohio DTE Form 100 (Statement of Conveyance of Homestead
+    Property) or Form 100EX (Exempt) filed with the county auditor for
+    this transfer."""@en .
+
+# --- Mortgage ---
+
+cincy:mortgageAmount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:integer ;
+    rdfs:label "mortgage amount (USD)"@en ;
+    rdfs:comment "The original principal amount of the mortgage loan."@en .
+
+cincy:mortgageDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:date ;
+    rdfs:label "mortgage date"@en ;
+    rdfs:comment "The date the mortgage was executed."@en .
+
+cincy:mortgageRecordingDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:date ;
+    rdfs:label "mortgage recording date"@en ;
+    rdfs:comment "The date the mortgage was recorded with the county recorder. Determines lien priority under Ohio's race-notice statute."@en .
+
+cincy:mortgageInstrumentNumber
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:string ;
+    rdfs:label "mortgage instrument number"@en ;
+    rdfs:comment "The county recorder's instrument number for the recorded mortgage."@en .
+
+cincy:interestRate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "interest rate"@en ;
+    rdfs:comment "The annual interest rate as a percentage (e.g., 6.5 for 6.5%). For adjustable-rate mortgages, this is the initial rate."@en .
+
+cincy:termMonths
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:integer ;
+    rdfs:label "term in months"@en ;
+    rdfs:comment "The loan term in months (e.g., 360 for a 30-year mortgage)."@en .
+
+cincy:isOpenEnd
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "open-end mortgage"@en ;
+    rdfs:comment """True if this is an open-end mortgage under ORC 5301.232,
+    which allows additional advances up to a stated maximum without
+    re-recording. Priority relates back to the original recording date."""@en .
+
+cincy:maxOpenEndAmount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:integer ;
+    rdfs:label "maximum open-end amount (USD)"@en ;
+    rdfs:comment "For open-end mortgages: the maximum principal secured."@en .
+
+cincy:isSatisfied
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is satisfied"@en ;
+    rdfs:comment """True if the mortgage has been fully paid and a certificate
+    of satisfaction recorded. Ohio requires lenders to record satisfaction
+    within 90 days of payoff (ORC 5301.36)."""@en .
+
+cincy:satisfactionDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:date ;
+    rdfs:label "satisfaction date"@en ;
+    rdfs:comment "The date the mortgage was satisfied (paid in full)."@en .
+
+cincy:lienPriority
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:Mortgage ;
+    rdfs:range xsd:integer ;
+    rdfs:label "lien priority"@en ;
+    rdfs:comment """The priority position of this mortgage lien (1 = first
+    mortgage, 2 = second mortgage, etc.). Priority follows recording order
+    under Ohio's race-notice statute unless altered by a subordination
+    agreement. Purchase money mortgages have automatic priority over
+    liens attaching at the time of acquisition."""@en .
+
+# --- Ownership Interest ---
+
+cincy:interestFraction
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "interest fraction"@en ;
+    rdfs:comment """The fractional share of ownership, expressed as a decimal
+    (e.g., 0.5 for a 50% interest). For tenancy in common, shares need not
+    be equal. For survivorship tenancy, shares are typically equal."""@en .
+
+cincy:interestStartDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range xsd:date ;
+    rdfs:label "interest start date"@en ;
+    rdfs:comment "The date this ownership interest was established."@en .
+
+cincy:interestEndDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:OwnershipInterest ;
+    rdfs:range xsd:date ;
+    rdfs:label "interest end date"@en ;
+    rdfs:comment "The date this ownership interest terminated (transfer, death, etc.)."@en .
+
+# --- Heirs' Property ---
+
+cincy:decedentDeathDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "decedent death date"@en ;
+    rdfs:comment "Date of death of the owner of record, if known."@en .
+
+cincy:estimatedHeirCount
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "estimated heir count"@en ;
+    rdfs:comment """Estimated number of potential heirs with a fractional interest
+    by operation of intestate succession. May span multiple generations."""@en .
+
+cincy:isOccupiedByHeir
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "occupied by heir"@en ;
+    rdfs:comment "True if one or more heirs are currently occupying the property."@en .
+
+cincy:heirsPropertyIdentifiedDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "heirs' property identified date"@en ;
+    rdfs:comment "Date the property was identified or flagged as heirs' property."@en .
+
+cincy:isTitleCleared
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "title cleared"@en ;
+    rdfs:comment """True if the tangled title has been resolved through probate,
+    heirship affidavit, quiet title action, or other legal proceeding."""@en .
+
+cincy:titleClearedDate
+    a owl:DatatypeProperty ;
+    rdfs:domain cincy:HeirsPropertyDesignation ;
+    rdfs:range xsd:date ;
+    rdfs:label "title cleared date"@en ;
+    rdfs:comment "Date the title was cleared, if resolved."@en .
 
 cincy:sketchIdCode
     a owl:ObjectProperty ;

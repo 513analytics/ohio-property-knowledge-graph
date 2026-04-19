@@ -39,6 +39,34 @@ Finds all owner-occupied properties with homestead exemptions for a given tax ye
 
 ---
 
+### 6. [transfer-history.rq](transfer-history.rq)
+Returns all recorded transfers for a given parcel, including sale price, deed type, transfer classification, parties, and conveyance fee details.
+
+**Use case:** Investigating the ownership chain and transaction history of a property, identifying arm's length sales vs. non-market transfers.
+
+---
+
+### 7. [mortgage-lookup.rq](mortgage-lookup.rq)
+Returns all mortgages recorded against a parcel, including lender, amount, interest rate, term, type, payment structure, and satisfaction status.
+
+**Use case:** Understanding the financing history and current liens on a property. Identifying active vs. satisfied mortgages.
+
+---
+
+### 8. [ownership-interests.rq](ownership-interests.rq)
+Returns how title is held for parcels, including ownership type (survivorship tenancy, tenancy in common, life estate, etc.), fractional interests, and remainder holders.
+
+**Use case:** Analyzing co-ownership patterns, identifying survivorship tenancies, finding life estate arrangements.
+
+---
+
+### 9. [foreclosure-transfers.rq](foreclosure-transfers.rq)
+Finds all transfers classified as foreclosures (judicial, tax, expedited), sheriff's sales, and auditor's sales within a date range.
+
+**Use case:** Analyzing foreclosure activity by neighborhood, identifying distressed properties, tracking land bank acquisitions.
+
+---
+
 ## Running These Queries
 
 1. Copy the `.rq` file content

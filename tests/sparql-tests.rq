@@ -144,3 +144,121 @@ ASK WHERE {
 ASK WHERE {
   <http://kg.513analytics.com/ont/cincy> owl:imports <http://www.w3.org/2004/02/skos/core> .
 } ;
+
+# ============================================================================
+# TEST 5: Transfer, Mortgage, and Ownership Classes
+# ============================================================================
+
+# Test: TransferEvent class is defined
+ASK WHERE {
+  cincy:TransferEvent a owl:Class .
+} ;
+
+# Test: Mortgage class is defined
+ASK WHERE {
+  cincy:Mortgage a owl:Class .
+} ;
+
+# Test: OwnershipInterest class is defined
+ASK WHERE {
+  cincy:OwnershipInterest a owl:Class .
+} ;
+
+# ============================================================================
+# TEST 6: Transfer Vocabulary (SKOS)
+# ============================================================================
+
+# Test: TransferClassificationScheme is defined
+ASK WHERE {
+  cincy:TransferClassificationScheme a skos:ConceptScheme .
+} ;
+
+# Test: TransferClassification class is defined
+ASK WHERE {
+  cincy:TransferClassification a rdfs:Class .
+} ;
+
+# Test: Arm's Length Sale concept exists
+ASK WHERE {
+  cincy:TC_ArmsLength a cincy:TransferClassification ;
+                       skos:broader cincy:TC_MarketSale .
+} ;
+
+# Test: Judicial Foreclosure concept exists
+ASK WHERE {
+  cincy:TC_JudicialForeclosure a cincy:TransferClassification ;
+                                skos:broader cincy:TC_CourtOrdered .
+} ;
+
+# ============================================================================
+# TEST 7: Mortgage Type Vocabulary (SKOS)
+# ============================================================================
+
+# Test: MortgageTypeScheme is defined
+ASK WHERE {
+  cincy:MortgageTypeScheme a skos:ConceptScheme .
+} ;
+
+# Test: MortgageType class is defined
+ASK WHERE {
+  cincy:MortgageType a rdfs:Class .
+} ;
+
+# Test: FHA Loan concept exists
+ASK WHERE {
+  cincy:MT_FHA a cincy:MortgageType ;
+               skos:broader cincy:MT_GovernmentBacked .
+} ;
+
+# Test: OHFA First-Time Homebuyer concept exists
+ASK WHERE {
+  cincy:MT_OHFAFirstTime a cincy:MortgageType ;
+                          skos:broader cincy:MT_StateProgram .
+} ;
+
+# ============================================================================
+# TEST 8: Payment Structure and Ownership Type Vocabularies
+# ============================================================================
+
+# Test: PaymentStructureScheme is defined
+ASK WHERE {
+  cincy:PaymentStructureScheme a skos:ConceptScheme .
+} ;
+
+# Test: Balloon payment structure exists
+ASK WHERE {
+  cincy:PS_Balloon a cincy:PaymentStructure ;
+                    skos:topConceptOf cincy:PaymentStructureScheme .
+} ;
+
+# Test: OwnershipTypeScheme is defined
+ASK WHERE {
+  cincy:OwnershipTypeScheme a skos:ConceptScheme .
+} ;
+
+# Test: Survivorship Tenancy concept exists
+ASK WHERE {
+  cincy:OT_SurvivorshipTenancy a cincy:OwnershipType ;
+                                skos:topConceptOf cincy:OwnershipTypeScheme .
+} ;
+
+# Test: Tenancy in Common concept exists
+ASK WHERE {
+  cincy:OT_TenancyInCommon a cincy:OwnershipType ;
+                            skos:topConceptOf cincy:OwnershipTypeScheme .
+} ;
+
+# ============================================================================
+# TEST 9: Heirs' Property (Tangled Title)
+# ============================================================================
+
+# Test: HeirsPropertyDesignation class is defined
+ASK WHERE {
+  cincy:HeirsPropertyDesignation a owl:Class .
+} ;
+
+# Test: Heirs' Property ownership type concept exists
+ASK WHERE {
+  cincy:OT_HeirsProperty a cincy:OwnershipType ;
+                          skos:topConceptOf cincy:OwnershipTypeScheme .
+} ;
